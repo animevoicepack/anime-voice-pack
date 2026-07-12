@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-
+export const runtime = 'edge';
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
@@ -55,10 +55,10 @@ export async function POST(req: Request) {
     // we return a redirect URL to our `/success` page which renders the confirmation message.
     // In production, you would redirect the client to the Stripe checkout link, which redirects back to our success page.
     const stripeUrlPlaceholder = "[STRIPE_URL_PLACEHOLDER]";
-    
+
     // Check if we want to simulate payment directly (default for local reviews)
     const simulateDirectSuccess = true;
-    
+
     const redirectUrl = simulateDirectSuccess
       ? `/success?email=${encodeURIComponent(email)}`
       : stripeUrlPlaceholder;
