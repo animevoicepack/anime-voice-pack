@@ -163,7 +163,7 @@ export default function Showcase() {
       <div className="container">
         <h2 className="section-title">Included Anime Series</h2>
         <p className="section-subtitle">
-          Explore the massive collection of pristine voice clips covering your favorite characters. Drag or hover to pause the marquee scroll.
+          Explore a massive Anime collection of pristine voice files featuring your favorite characters. Ultra-clear audio samples perfectly optimized
         </p>
       </div>
 

@@ -49,6 +49,8 @@ export default function Hero() {
           loop
           muted
           playsInline
+          controlsList="nodownload"
+          onContextMenu={(e) => e.preventDefault()}
           id="bg-video"
           className="hero-video"
         />
@@ -65,7 +67,7 @@ export default function Hero() {
           </h1>
           
           <p className="hero-subtitle">
-            Get <span className="highlight-cyan">1000+</span> ultra-clear voice files/samples from <span className="highlight-orange">16+ anime series</span>, optimized for <span className="highlight-yellow">Ai voice clone</span> & <span className="highlight-green">WhatsApp messaging</span>.
+            Get <span className="highlight-cyan">1000+</span> ultra-clear voice files/samples from <span className="highlight-orange">16+ anime series</span>, optimized for <span className="highlight-yellow">Ai voice clone</span> & <span className="highlight-green">WhatsApp Voice messages</span>.
           </p>
 
           <div className="hero-actions">

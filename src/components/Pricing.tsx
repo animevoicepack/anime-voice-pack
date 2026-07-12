@@ -73,7 +73,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
               </li>
               <li>
                 <span className="check-icon">✓</span>
-                <span>Perfect for custom WhatsApp messages & Discord sounds</span>
+                <span>Perfect for custom WhatsApp voice messages & Discord sounds</span>
               </li>
             </ul>
 
