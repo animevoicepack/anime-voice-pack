@@ -12,77 +12,77 @@ interface SeriesItem {
 const seriesList: SeriesItem[] = [
   {
     name: "THE SEVEN DEADLY SINS",
-    posters: ["/posters/The Seven Deadly Sins.jpg"],
+    posters: ["/posters/the-seven-deadly-sins.jpg"],
     lang: "JP ONLY",
   },
   {
     name: "ONE PIECE",
-    posters: ["/posters/One piece.jpeg"],
+    posters: ["/posters/one-piece.jpeg"],
     lang: "JP ONLY",
   },
   {
     name: "JOJO'S BIZARRE ADVENTURE",
-    posters: ["/posters/Jojo's bizarre adventure.jpg"],
+    posters: ["/posters/jojos-bizarre-adventure.jpg"],
     lang: "JP ONLY",
   },
   {
     name: "NARUTO & BORUTO",
-    posters: ["/posters/Naruto.jpg", "/posters/Boruto.jpg"],
+    posters: ["/posters/naruto.jpg", "/posters/boruto.jpg"],
     lang: "JP ONLY",
   },
   {
     name: "HAJIME NO IPPO",
-    posters: ["/posters/Hajime no Ippo.jpg"],
+    posters: ["/posters/hajime-no-ippo.jpg"],
     lang: "JP ONLY",
   },
   {
     name: "DRAGON BALL",
-    posters: ["/posters/Dragon ball.jpg"],
+    posters: ["/posters/dragon-ball.jpg"],
     lang: "EN & JP",
   },
   {
     name: "ATTACK ON TITAN",
-    posters: ["/posters/Attack on Titan.jpg"],
+    posters: ["/posters/attack-on-titan.jpg"],
     lang: "JP ONLY",
   },
   {
     name: "BLEACH",
-    posters: ["/posters/Bleach.jpg"],
+    posters: ["/posters/bleach.jpg"],
     lang: "JP ONLY",
   },
   {
     name: "DEMON SLAYER",
-    posters: ["/posters/Demon Slayer .jpg"], // Space in filename
+    posters: ["/posters/demon-slayer.jpg"],
     lang: "EN & JP",
   },
   {
     name: "HUNTER X HUNTER",
-    posters: ["/posters/Hunter x hunter.jpg"],
+    posters: ["/posters/hunter-x-hunter.jpg"],
     lang: "JP ONLY",
   },
   {
     name: "SOLO LEVELING",
-    posters: ["/posters/Solo leveling.jpg"],
+    posters: ["/posters/solo-leveling.jpg"],
     lang: "EN & JP",
   },
   {
     name: "MY HERO ACADEMIA",
-    posters: ["/posters/My hero academia.jpg"],
+    posters: ["/posters/my-hero-academia.jpg"],
     lang: "EN & JP",
   },
   {
     name: "BLUE LOCK",
-    posters: ["/posters/blue lock.jpg"],
+    posters: ["/posters/blue-lock.jpg"],
     lang: "JP ONLY",
   },
   {
     name: "JUJUTSU KAISEN",
-    posters: ["/posters/jujutsu kaisen.jpg"],
+    posters: ["/posters/jujutsu-kaisen.jpg"],
     lang: "EN & JP",
   },
   {
     name: "ONE PUNCH MAN",
-    posters: ["/posters/one punch man.jpg"],
+    posters: ["/posters/one-punch-man.jpg"],
     lang: "EN & JP",
   },
   {
