@@ -69,7 +69,7 @@ export async function POST(req: Request) {
       captured: true,
       email,
     });
-  } catch (err: any) {
+  } catch (err) {
     console.error("[SERVER ERROR] Checkout API Exception:", err);
     return NextResponse.json({ error: "Internal server security error" }, { status: 500 });
   }

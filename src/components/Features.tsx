@@ -32,7 +32,7 @@ export default function Features() {
             </div>
             <h3 className="feature-card-title">Clean Isolated Audio</h3>
             <p className="feature-card-text">
-              Every sample is edited to isolate the character's clean speaking voice. Background music, action sound effects, and ambient noises have been completely removed. This provides pure, clean audio files with maximum clarity and zero background noise artifacts, perfect for soundboards and video projects.
+              Every sample is edited to isolate the character&apos;s clean speaking voice. Background music, action sound effects, and ambient noises have been completely removed. This provides pure, clean audio files with maximum clarity and zero background noise artifacts, perfect for soundboards and video projects.
             </p>
             <div className="feature-tags">
               <span className="feature-tag">No BGM</span>
