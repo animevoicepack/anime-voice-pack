@@ -26,7 +26,10 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
               width={50}
               height={50}
             />
-            <span className="success-logo-text">ANIME VOICE PACK</span>
+            <div className="logo-text-container">
+              <span className="success-logo-text">ANIME VOICE PACK</span>
+              <span className="company-tag">Alpha Voice Assets LLC</span>
+            </div>
           </div>
 
           {/* Success Checkmark Circle */}

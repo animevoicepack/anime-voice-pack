@@ -15,11 +15,12 @@ export default function Footer({ onOpenPolicy }: FooterProps) {
         {/* Logo and About block */}
         <div className="footer-brand">
           <h4 className="footer-logo-text">ANIME VOICE PACK</h4>
+          <span className="company-tag footer-company-tag">Alpha Voice Assets LLC</span>
           <p className="footer-desc">
             Premium isolated voice datasets for soundboards, content creation, and messaging.
           </p>
         </div>
-
+ 
         {/* Links block */}
         <div className="footer-links-group">
           <div className="footer-links-col">
@@ -56,7 +57,7 @@ export default function Footer({ onOpenPolicy }: FooterProps) {
       <div className="footer-bottom">
         <div className="container footer-bottom-container">
           <p className="copyright-text">
-            © {currentYear} Anime Voice Pack Bundle. All rights reserved.
+            © {currentYear} Alpha Voice Assets LLC. All rights reserved.
           </p>
           <p className="disclaimer-text">
             Disclaimer: Character names, posters, and reference audio are the property of their respective copyright owners. Audio samples are isolated for educational, parody, and creative usage under Fair Use guidelines.

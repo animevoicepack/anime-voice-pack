@@ -15,7 +15,10 @@ export default function Navbar() {
             height={40}
             className="logo-img"
           />
-          <span className="logo-text">ANIME VOICE PACK</span>
+          <div className="logo-text-container">
+            <span className="logo-text">ANIME VOICE PACK</span>
+            <span className="company-tag">Alpha Voice Assets LLC</span>
+          </div>
         </a>
 
         <div className="navbar-links">
