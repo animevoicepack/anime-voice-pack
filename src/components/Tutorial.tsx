@@ -39,7 +39,7 @@ export default function Tutorial() {
               </div>
               <div className="video-title-overlay">
                 <h3>Voice Pack Tutorial & Showcase</h3>
-                <p>Click to watch the full explainer (5 mins)</p>
+                <p>Click to watch the full explainer</p>
               </div>
             </div>
           ) : (
