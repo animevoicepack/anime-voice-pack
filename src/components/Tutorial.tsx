@@ -9,7 +9,7 @@ export default function Tutorial() {
     setIsPlaying(true);
     // Since it's a placeholder link, we can also open it in a new window or render the iframe
     // In production, we'd render the iframe:
-    // window.open('[YOUTUBE_URL_PLACEHOLDER]', '_blank');
+    // window.open('https://youtu.be/4AtRNQIbDmc', '_blank');
   };
 
   return (
@@ -46,14 +46,14 @@ export default function Tutorial() {
             /* YouTube Iframe Embed */
             <div className="video-iframe-wrapper">
               <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ" // standard youtube embed template
+                src="https://www.youtube.com/embed/4AtRNQIbDmc?autoplay=1"
                 title="Anime Voice Pack Tutorial"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="video-iframe"
               ></iframe>
               <div className="iframe-placeholder-info">
-                <span>Currently playing explainer demonstration. Product links to: <code>[YOUTUBE_URL_PLACEHOLDER]</code></span>
+                <span>Watch on YouTube: <a href="https://youtu.be/4AtRNQIbDmc" target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-primary)", textDecoration: "underline" }}>youtu.be/4AtRNQIbDmc</a></span>
               </div>
             </div>
           )}

@@ -82,7 +82,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
             
             {/* Highly visible watch button */}
             <a
-              href="[YOUTUBE_URL_PLACEHOLDER]"
+              href="https://youtu.be/4AtRNQIbDmc"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary success-watch-btn"
