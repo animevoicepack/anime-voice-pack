@@ -15,7 +15,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
   const handleCheckoutClick = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
-      setError("Email address is required to dispatch the secure link.");
+      setError("Email address is required to dispatch your secure link.");
       return;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,62 +28,125 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
   };
 
   return (
-    <section id="pricing" className="pricing-section">
-      <div className="container">
-        <h2 className="section-title">Get Instant Access Now</h2>
-        <p className="section-subtitle">
-          Get your premium voice pack bundle today at a limited-time 50% discount.
-        </p>
+    <section id="pricing" className="pricing-section" style={{ padding: "80px 0" }}>
+      <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+        <div style={{ textAlign: "center", marginBottom: "48px" }}>
+          <h2 className="section-title" style={{ fontSize: "2.25rem", fontWeight: 900, letterSpacing: "-0.02em", color: "#ffffff", marginBottom: "12px" }}>
+            Get Instant Access Now
+          </h2>
+          <p className="section-subtitle" style={{ fontSize: "1.125rem", color: "#94a3b8", maxWidth: "600px", margin: "0 auto" }}>
+            Get your premium voice pack bundle today at a limited-time 50% discount.
+          </p>
+        </div>
 
-        <div className="pricing-card-container">
-          <div className="pricing-card glass pulsing-glow">
+        <div className="pricing-card-container" style={{ maxWidth: "640px", margin: "0 auto" }}>
+          <div
+            className="pricing-card"
+            style={{
+              position: "relative",
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "24px",
+              boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.07)",
+              padding: "40px 32px",
+              color: "#0f172a",
+              overflow: "hidden",
+            }}
+          >
             {/* Discount Ribbon */}
-            <div className="pricing-ribbon">50% OFF</div>
+            <div
+              style={{
+                position: "absolute",
+                top: "24px",
+                right: "-32px",
+                background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)",
+                color: "#ffffff",
+                fontSize: "0.75rem",
+                fontWeight: 800,
+                padding: "6px 40px",
+                transform: "rotate(45deg)",
+                boxShadow: "0 4px 10px rgba(139, 92, 246, 0.3)",
+                letterSpacing: "0.05em",
+              }}
+            >
+              50% OFF
+            </div>
             
-            <div className="pricing-header">
-              <span className="badge">Limited Time Offer</span>
-              <h3 className="product-name">Anime Voice Pack Bundle</h3>
-              <p className="product-files-count">1,000+ Clean Audio Samples</p>
+            <div style={{ marginBottom: "28px" }}>
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "4px 12px",
+                  background: "rgba(139, 92, 246, 0.1)",
+                  border: "1px solid rgba(139, 92, 246, 0.25)",
+                  color: "#7c3aed",
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  borderRadius: "9999px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  marginBottom: "12px",
+                }}
+              >
+                Limited Time Offer
+              </span>
+              <h3 style={{ fontSize: "1.75rem", fontWeight: 900, color: "#0f172a", margin: "0 0 6px 0" }}>
+                ANIME VOICE PACK
+              </h3>
+              <p style={{ fontSize: "0.95rem", color: "#475569", margin: 0, fontWeight: 500 }}>
+                1,000+ Clean High-Quality Audio Samples
+              </p>
             </div>
 
             {/* Price Container */}
-            <div className="price-container">
-              <span className="original-price">$100</span>
-              <span className="current-price">$50</span>
-              <span className="price-period">One-time payment</span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "baseline",
+                gap: "12px",
+                padding: "20px",
+                background: "#f8fafc",
+                borderRadius: "16px",
+                border: "1px solid #f1f5f9",
+                marginBottom: "28px",
+              }}
+            >
+              <span style={{ fontSize: "1.25rem", color: "#94a3b8", textDecoration: "line-through", fontWeight: 600 }}>
+                $100
+              </span>
+              <span style={{ fontSize: "2.75rem", fontWeight: 900, color: "#0f172a", lineHeight: 1 }}>
+                $50
+              </span>
+              <span style={{ fontSize: "0.875rem", color: "#475569", fontWeight: 600 }}>
+                USD &bull; One-time payment
+              </span>
             </div>
 
             {/* Included Features Checklist */}
-            <ul className="pricing-features">
-              <li>
-                <span className="check-icon">✓</span>
-                <span>1000+ ultra-clear voice files/samples</span>
-              </li>
-              <li>
-                <span className="check-icon">✓</span>
-                <span>Perfectly isolated & normalized MP3 files</span>
-              </li>
-              <li>
-                <span className="check-icon">✓</span>
-                <span>Sorted across 16+ Anime series</span>
-              </li>
-              <li>
-                <span className="check-icon">✓</span>
-                <span>100% ready for Discord soundboards, content edits, and parodies</span>
-              </li>
-              <li>
-                <span className="check-icon">✓</span>
-                <span>Perfect for custom WhatsApp voice messages & Discord sounds</span>
-              </li>
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px 0", display: "flex", flexDirection: "column", gap: "12px" }}>
+              {[
+                "1,000+ ultra-clear voice files/samples",
+                "Perfectly isolated & normalized MP3 files",
+                "Sorted across 16+ Anime series",
+                "100% ready for Discord soundboards, content edits, and parodies",
+                "Perfect for custom WhatsApp voice messages & Discord sounds",
+              ].map((feat, index) => (
+                <li key={index} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "0.95rem", color: "#334155", fontWeight: 500 }}>
+                  <span style={{ color: "#16a34a", fontWeight: 800, fontSize: "1.1rem" }}>✓</span>
+                  <span>{feat}</span>
+                </li>
+              ))}
             </ul>
 
             {/* Purchase Form */}
-            <form onSubmit={handleCheckoutClick} className="pricing-form">
-              <label className="form-label" htmlFor="pricing-email">
-                Delivery Email Address:
-              </label>
-              
-              <div className="input-group">
+            <form onSubmit={handleCheckoutClick} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div>
+                <label
+                  htmlFor="pricing-email"
+                  style={{ display: "block", fontSize: "0.875rem", fontWeight: 700, color: "#0f172a", marginBottom: "8px" }}
+                >
+                  Delivery Email Address:
+                </label>
                 <input
                   id="pricing-email"
                   type="email"
@@ -93,20 +156,106 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                     setEmail(e.target.value);
                     if (error) setError("");
                   }}
-                  className={`email-input ${error ? "input-error" : ""}`}
                   disabled={isLoading}
+                  style={{
+                    width: "100%",
+                    padding: "14px 16px",
+                    fontSize: "0.95rem",
+                    color: "#0f172a",
+                    backgroundColor: "#ffffff",
+                    border: error ? "2px solid #ef4444" : "1px solid #e2e8f0",
+                    borderRadius: "12px",
+                    outline: "none",
+                    boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
+                    transition: "all 0.2s ease",
+                  }}
+                  onFocus={(e) => {
+                    if (!error) {
+                      e.target.style.borderColor = "#8b5cf6";
+                      e.target.style.boxShadow = "0 0 0 3px rgba(139, 92, 246, 0.25)";
+                    }
+                  }}
+                  onBlur={(e) => {
+                    if (!error) {
+                      e.target.style.borderColor = "#e2e8f0";
+                      e.target.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.05)";
+                    }
+                  }}
                 />
-                {error && <span className="error-message">{error}</span>}
+                {error && <span style={{ display: "block", fontSize: "0.8125rem", color: "#dc2626", marginTop: "6px", fontWeight: 600 }}>{error}</span>}
               </div>
 
-              <button type="submit" className="btn-primary checkout-btn" disabled={isLoading}>
-                {isLoading ? "Redirecting to checkout..." : "Proceed to Secure Stripe Checkout"}
+              <button
+                type="submit"
+                disabled={isLoading}
+                style={{
+                  width: "100%",
+                  padding: "16px 24px",
+                  fontSize: "1.05rem",
+                  fontWeight: 800,
+                  color: "#ffffff",
+                  background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)",
+                  border: "none",
+                  borderRadius: "12px",
+                  cursor: isLoading ? "not-allowed" : "pointer",
+                  boxShadow: "0 10px 25px -5px rgba(139, 92, 246, 0.4)",
+                  transition: "all 0.2s ease",
+                  opacity: isLoading ? 0.7 : 1,
+                }}
+              >
+                {isLoading ? "Redirecting to checkout..." : "Proceed to Secure Stripe Checkout →"}
               </button>
             </form>
 
+            {/* Trust Micro-Badges */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "12px",
+                marginTop: "24px",
+                paddingTop: "20px",
+                borderTop: "1px solid #f1f5f9",
+              }}
+            >
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "0.8125rem",
+                  fontWeight: 600,
+                  color: "#475569",
+                  background: "#f8fafc",
+                  border: "1px solid #e2e8f0",
+                  padding: "6px 14px",
+                  borderRadius: "9999px",
+                }}
+              >
+                <span>🔒</span> 256-Bit SSL Encrypted
+              </div>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "0.8125rem",
+                  fontWeight: 600,
+                  color: "#475569",
+                  background: "#f8fafc",
+                  border: "1px solid #e2e8f0",
+                  padding: "6px 14px",
+                  borderRadius: "9999px",
+                }}
+              >
+                <span>⚡</span> Instant Direct Email Delivery
+              </div>
+            </div>
+
             {/* Security Disclaimer */}
-            <p className="security-note">
-              🔒 <strong>Important:</strong> Your unique, secure download link is generated via Cloudflare R2 and dispatched immediately via Resend to your provided email address after payment. For security reasons, the download link remains active for exactly 1 hour.
+            <p style={{ fontSize: "0.8125rem", color: "#64748b", marginTop: "16px", textAlign: "center", lineHeight: "1.5" }}>
+              🔒 <strong>Important:</strong> Your unique secure download link is generated via Cloudflare R2 and dispatched immediately via Resend to your provided email address after payment. The download link remains active for 2 hours.
             </p>
           </div>
         </div>
