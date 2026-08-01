@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Resend } from "resend";
+import { CONFIG } from "@/lib/config";
 
 export const runtime = 'edge';
 
@@ -11,8 +12,8 @@ export async function POST(req: Request) {
   const body = await req.text();
   const signature = req.headers.get("stripe-signature");
 
-  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const stripeSecretKey = CONFIG.STRIPE.SECRET_KEY;
+  const webhookSecret = CONFIG.STRIPE.WEBHOOK_SECRET;
 
   if (!signature) {
     console.error("[Webhook Error] Missing stripe-signature header");
@@ -78,8 +79,8 @@ export async function POST(req: Request) {
     }
 
     // 3. Database Logging (Supabase)
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseUrl = CONFIG.SUPABASE.URL;
+    const supabaseServiceKey = CONFIG.SUPABASE.SERVICE_ROLE_KEY;
 
     if (supabaseUrl && supabaseServiceKey) {
       try {
@@ -110,12 +111,11 @@ export async function POST(req: Request) {
 
     // 4. Cloudflare R2 Presigned URL Generation
     let downloadUrl = "#";
-    const r2AccountId = process.env.R2_ACCOUNT_ID;
-    const r2AccessKeyId = process.env.R2_ACCESS_KEY_ID;
-    const r2SecretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
-    const r2Endpoint = process.env.R2_ENDPOINT || (r2AccountId ? `https://${r2AccountId}.r2.cloudflarestorage.com` : undefined);
-    const r2BucketName = process.env.R2_BUCKET_NAME || "anime-voice-packs";
-    const r2FileKey = process.env.R2_FILE_KEY || "anime-voice-pack.zip";
+    const r2AccessKeyId = CONFIG.R2.ACCESS_KEY_ID;
+    const r2SecretAccessKey = CONFIG.R2.SECRET_ACCESS_KEY;
+    const r2Endpoint = CONFIG.R2.ENDPOINT;
+    const r2BucketName = CONFIG.R2.BUCKET_NAME;
+    const r2FileKey = CONFIG.R2.FILE_KEY;
 
     if (r2Endpoint && r2AccessKeyId && r2SecretAccessKey) {
       try {
@@ -150,13 +150,11 @@ export async function POST(req: Request) {
     }
 
     // 5. Transactional Email (Resend)
-    const resendApiKey = process.env.RESEND_API_KEY;
+    const resendApiKey = CONFIG.RESEND.API_KEY;
     if (resendApiKey && email) {
       try {
         const resend = new Resend(resendApiKey);
-        // Default sender to onboarding@resend.dev as per Resend API rules for unverified domains
-        const configuredFrom = process.env.RESEND_FROM_EMAIL;
-        const fromEmail = configuredFrom || "onboarding@resend.dev";
+        const fromEmail = CONFIG.RESEND.FROM_EMAIL || "onboarding@resend.dev";
 
         const emailPayload = {
           from: fromEmail,

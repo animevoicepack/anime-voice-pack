@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { loadStripe, StripeEmbeddedCheckout } from "@stripe/stripe-js";
+import { CONFIG } from "@/lib/config";
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -9,10 +10,7 @@ interface CheckoutModalProps {
   email?: string;
 }
 
-const publishableKey =
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ||
-  process.env.STRIPE_PUBLISHABLE_KEY ||
-  "pk_test_placeholder";
+const publishableKey = CONFIG.STRIPE.PUBLISHABLE_KEY;
 
 const stripePromise = loadStripe(publishableKey);
 

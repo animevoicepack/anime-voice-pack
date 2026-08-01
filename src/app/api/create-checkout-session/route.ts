@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { CONFIG } from "@/lib/config";
 
 export const runtime = 'edge';
 
@@ -10,7 +11,7 @@ export async function POST(req: Request) {
     const body = await req.json().catch(() => ({}));
     const email = typeof body.email === "string" && body.email.trim() ? body.email.trim() : undefined;
 
-    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    const stripeSecretKey = CONFIG.STRIPE.SECRET_KEY;
     if (!stripeSecretKey) {
       console.error("[Stripe Error] STRIPE_SECRET_KEY is missing from environment variables");
       return NextResponse.json(
