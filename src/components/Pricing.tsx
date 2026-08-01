@@ -125,15 +125,26 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
             {/* Included Features Checklist */}
             <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px 0", display: "flex", flexDirection: "column", gap: "12px" }}>
               {[
-                "1,000+ ultra-clear voice files/samples",
-                "Perfectly isolated & normalized MP3 files",
-                "Sorted across 16+ Anime series",
-                "100% ready for Discord soundboards, content edits, and parodies",
-                "Perfect for custom WhatsApp voice messages & Discord sounds",
+                { text: "ALL OF THE ANIME CHARACTERS' VOICE-OVERS READY TO CLONE.", isHighlight: true },
+                { text: "1,000+ ultra-clear voice files/samples", isHighlight: false },
+                { text: "Perfectly isolated & normalized MP3 files", isHighlight: false },
+                { text: "Sorted across 16+ Anime series", isHighlight: false },
+                { text: "100% ready for Discord soundboards, content edits, and parodies", isHighlight: false },
+                { text: "Perfect for custom WhatsApp voice messages & Discord sounds", isHighlight: false },
               ].map((feat, index) => (
-                <li key={index} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "0.95rem", color: "#334155", fontWeight: 500 }}>
+                <li
+                  key={index}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "10px",
+                    fontSize: feat.isHighlight ? "0.98rem" : "0.95rem",
+                    color: feat.isHighlight ? "#0f172a" : "#334155",
+                    fontWeight: feat.isHighlight ? 800 : 500,
+                  }}
+                >
                   <span style={{ color: "#16a34a", fontWeight: 800, fontSize: "1.1rem" }}>✓</span>
-                  <span>{feat}</span>
+                  <span>{feat.text}</span>
                 </li>
               ))}
             </ul>
