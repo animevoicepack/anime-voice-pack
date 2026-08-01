@@ -21,8 +21,8 @@ export const CONFIG = {
     ENDPOINT:
       process.env.R2_ENDPOINT ||
       'https://e1441048b599b45c4e3bd05284e23f08.r2.cloudflarestorage.com',
-    BUCKET_NAME: process.env.R2_BUCKET_NAME || 'anime-voice-packs',
-    FILE_KEY: process.env.R2_FILE_KEY || 'anime-voice-pack.zip',
+    BUCKET_NAME: process.env.R2_BUCKET_NAME || 'anime-voice-pack-bundle',
+    FILE_KEY: process.env.R2_FILE_KEY || 'Anime Voice Pack Mp3.zip',
   },
   RESEND: {
     API_KEY:

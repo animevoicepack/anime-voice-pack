@@ -104,9 +104,10 @@ export async function POST(req: Request) {
       });
 
       const command = new GetObjectCommand({
-        Bucket: CONFIG.R2.BUCKET_NAME,
-        Key: CONFIG.R2.FILE_KEY,
-        ResponseContentDisposition: 'attachment; filename="Anime_Voice_Pack_Bundle.zip"',
+        Bucket: CONFIG.R2.BUCKET_NAME || 'anime-voice-pack-bundle',
+        Key: CONFIG.R2.FILE_KEY || 'Anime Voice Pack Mp3.zip',
+        ResponseContentDisposition: 'attachment; filename="Anime_Voice_Pack_Mp3.zip"',
+        ResponseContentType: 'application/zip',
       });
 
       // Generate 1-hour presigned URL (3,600 seconds)
