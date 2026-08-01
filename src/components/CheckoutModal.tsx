@@ -256,22 +256,6 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
               borderRadius: "9999px",
             }}
           >
-            <span>🔒</span> 256-Bit SSL Encrypted
-          </div>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              fontSize: "0.8125rem",
-              fontWeight: 600,
-              color: "#475569",
-              background: "#f8fafc",
-              border: "1px solid #e2e8f0",
-              padding: "6px 14px",
-              borderRadius: "9999px",
-            }}
-          >
             <span>⚡</span> Instant Direct Email Delivery
           </div>
         </div>

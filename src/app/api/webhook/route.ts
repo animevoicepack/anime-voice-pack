@@ -80,7 +80,6 @@ export async function POST(req: Request) {
     );
 
     // NULL GUARD FOR $0.00 TRANSACTIONS:
-    // Do NOT attempt to fetch stripe.paymentIntents.retrieve() if session.payment_intent is null.
     if (session.payment_status && session.payment_status !== "paid") {
       console.warn(
         `[Stripe Webhook Warning] Session ${sessionId} payment_status is not 'paid' (${session.payment_status}). Skipping fulfillment.`
@@ -91,7 +90,56 @@ export async function POST(req: Request) {
       });
     }
 
-    // 3. INDEPENDENT CLOUDFLARE R2 PRESIGNED LINK GENERATION
+    // 3. SUPABASE IDEMPOTENCY CHECK (PREVENT DUPLICATE EMAILS)
+    const supabaseUrl = CONFIG.SUPABASE.URL;
+    const supabaseServiceKey = CONFIG.SUPABASE.SERVICE_ROLE_KEY;
+    let supabaseClient: any = null;
+
+    if (supabaseUrl && supabaseServiceKey) {
+      try {
+        supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
+        const { data: existingOrder } = await supabaseClient
+          .from("orders")
+          .select("session_id")
+          .eq("session_id", sessionId)
+          .maybeSingle();
+
+        if (existingOrder) {
+          console.log(`[Stripe Webhook] Session ${sessionId} already processed in DB. Skipping duplicate email.`);
+          return new Response(JSON.stringify({ received: true, note: "Already processed" }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      } catch (checkErr: any) {
+        console.warn("[Stripe Webhook Warning] Idempotency check exception:", checkErr?.message);
+      }
+    }
+
+    // Log order in DB to lock session idempotency
+    if (supabaseClient) {
+      try {
+        const { error: dbError } = await supabaseClient.from("orders").insert([
+          {
+            session_id: sessionId,
+            email: email,
+            amount: amount,
+            status: "completed",
+            created_at: new Date().toISOString(),
+          },
+        ]);
+
+        if (dbError) {
+          console.error("[Supabase DB Error] Order insertion error:", dbError);
+        } else {
+          console.log("[Supabase DB Success] Order logged successfully.");
+        }
+      } catch (dbErr: any) {
+        console.error("[Supabase Exception] DB operation error:", dbErr);
+      }
+    }
+
+    // 4. INDEPENDENT CLOUDFLARE R2 PRESIGNED LINK GENERATION
     let downloadUrl = "https://animevoicepack.com/download";
     try {
       const s3Client = new S3Client({
@@ -125,7 +173,7 @@ export async function POST(req: Request) {
       downloadUrl = "https://animevoicepack.com/download";
     }
 
-    // 4. INDEPENDENT RESEND EMAIL DISPATCH
+    // 5. INDEPENDENT RESEND EMAIL DISPATCH
     if (email) {
       try {
         const resendApiKey = CONFIG.RESEND.API_KEY;
@@ -172,7 +220,7 @@ export async function POST(req: Request) {
                       <a href="${downloadUrl}" class="btn" target="_blank">Download Voice Pack ZIP</a>
                       <br>
                       <div class="notice-box">
-                        ⏳ <strong>Secure Download Notice:</strong> For security and bandwidth protection, this download link is active for exactly 2 hours.
+                        ⏳ <strong>Secure Download Notice:</strong> For security and bandwidth protection, this download link is active for 2 hours.
                       </div>
                     </div>
 
@@ -239,38 +287,9 @@ export async function POST(req: Request) {
     } else {
       console.warn(`[Stripe Webhook Warning] No email address associated with session ${sessionId}`);
     }
-
-    // 4. ISOLATED SUPABASE DATABASE LOGGING
-    try {
-      const supabaseUrl = CONFIG.SUPABASE.URL;
-      const supabaseServiceKey = CONFIG.SUPABASE.SERVICE_ROLE_KEY;
-
-      if (supabaseUrl && supabaseServiceKey) {
-        const supabase = createClient(supabaseUrl, supabaseServiceKey);
-        const { error: dbError } = await supabase.from("orders").insert([
-          {
-            session_id: sessionId,
-            email: email,
-            amount: amount,
-            status: "completed",
-            created_at: new Date().toISOString(),
-          },
-        ]);
-
-        if (dbError) {
-          console.error("[Supabase DB Error] Non-fatal DB insertion error:", dbError);
-        } else {
-          console.log("[Supabase DB Success] Order logged successfully.");
-        }
-      } else {
-        console.warn("[Supabase Warning] SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY missing. Skipping DB log.");
-      }
-    } catch (dbErr: any) {
-      console.error("[Supabase Exception] Non-fatal DB operation error:", dbErr);
-    }
   }
 
-  // 5. ALWAYS RETURN HTTP 200 OK
+  // 6. ALWAYS RETURN HTTP 200 OK
   return new Response(JSON.stringify({ received: true }), {
     status: 200,
     headers: { "Content-Type": "application/json" },
