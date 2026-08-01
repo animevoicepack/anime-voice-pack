@@ -153,10 +153,11 @@ export async function POST(req: Request) {
     if (resendApiKey && email) {
       try {
         const resend = new Resend(resendApiKey);
-        const fromEmail =
-          process.env.RESEND_FROM_EMAIL || "Anime Voice Packs <onboarding@resend.dev>";
+        // Default sender to onboarding@resend.dev as per Resend API rules for unverified domains
+        const configuredFrom = process.env.RESEND_FROM_EMAIL;
+        const fromEmail = configuredFrom || "onboarding@resend.dev";
 
-        const emailResult = await resend.emails.send({
+        const emailPayload = {
           from: fromEmail,
           to: [email],
           subject: "⚡ Your Ultimate Anime Voice Pack Bundle Download is Ready!",
@@ -209,7 +210,18 @@ export async function POST(req: Request) {
               </body>
             </html>
           `,
-        });
+        };
+
+        let emailResult;
+        try {
+          emailResult = await resend.emails.send(emailPayload);
+        } catch (firstErr: any) {
+          console.warn("[Resend Warning] Primary email dispatch failed, trying fallback to 'onboarding@resend.dev':", firstErr?.message);
+          emailResult = await resend.emails.send({
+            ...emailPayload,
+            from: "onboarding@resend.dev",
+          });
+        }
 
         console.log(
           `[Resend Email Success] Transactional email sent to ${email}. ID: ${emailResult.data?.id || "sent"}`

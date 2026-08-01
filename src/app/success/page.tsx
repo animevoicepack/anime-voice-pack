@@ -57,8 +57,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
           
           <div className="success-message-container">
             <p className="success-msg-main">
-              Thank you for your purchase! Your secure download link has been generated and sent to{" "}
-              {email ? <strong className="success-email-highlight">{email}</strong> : "your email"}.
+              Thank you for your order! Your secure download link has been sent to your email address{email ? <> (<strong className="success-email-highlight">{email}</strong>)</> : ""}.
             </p>
             <p className="success-msg-sub">
               Please check your inbox (including your spam or promotions folder).
