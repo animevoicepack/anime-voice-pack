@@ -11,7 +11,7 @@ export default function Overview() {
           <div className="overview-info">
             <div className="badge">PRODUCT OVERVIEW</div>
             <h2 className="overview-title">
-              Studio-Grade Anime Vocal Samples Optimized for AI Cloning
+              1,000+ ANIME CHARACTERS' VOICE SAMPLES READY FOR AI VOICE CLONING
             </h2>
             <p className="overview-text">
               The <strong>Anime Voice Pack Bundle</strong> is a premium, meticulously curated collection of over <strong>1,000+ high-fidelity voice files</strong>. Sourced from 16+ of the most iconic anime series, every track has been professionally isolated and completely stripped of background music and noise to ensure absolute acoustic purity.
