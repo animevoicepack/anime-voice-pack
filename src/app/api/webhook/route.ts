@@ -91,44 +91,51 @@ export async function POST(req: Request) {
       });
     }
 
-    // 3. ISOLATED RESEND EMAIL DISPATCH & CLOUDFLARE R2 PRESIGNED LINK
+    // 3. INDEPENDENT CLOUDFLARE R2 PRESIGNED LINK GENERATION
+    let downloadUrl = "https://animevoicepack.com/download";
+    try {
+      const s3Client = new S3Client({
+        region: "auto",
+        endpoint: CONFIG.R2.ENDPOINT,
+        credentials: {
+          accessKeyId: CONFIG.R2.ACCESS_KEY_ID,
+          secretAccessKey: CONFIG.R2.SECRET_ACCESS_KEY,
+        },
+      });
+
+      const command = new GetObjectCommand({
+        Bucket: CONFIG.R2.BUCKET_NAME,
+        Key: CONFIG.R2.FILE_KEY,
+      });
+
+      // Generate 1-hour presigned URL (3,600 seconds)
+      const presignedUrl = await getSignedUrl(s3Client, command, {
+        expiresIn: 3600,
+      });
+      if (presignedUrl) {
+        downloadUrl = presignedUrl;
+        console.log(
+          `[Cloudflare R2 Success] Generated 1-hour presigned URL for ${CONFIG.R2.FILE_KEY}`
+        );
+      }
+    } catch (r2Err: any) {
+      console.error("[Cloudflare R2 Error] Failed to generate presigned URL, falling back to clean link:", r2Err);
+      downloadUrl = "https://animevoicepack.com/download";
+    }
+
+    // 4. INDEPENDENT RESEND EMAIL DISPATCH
     if (email) {
       try {
-        let downloadUrl = "#";
-        try {
-          const s3Client = new S3Client({
-            region: "auto",
-            endpoint: CONFIG.R2.ENDPOINT,
-            credentials: {
-              accessKeyId: CONFIG.R2.ACCESS_KEY_ID,
-              secretAccessKey: CONFIG.R2.SECRET_ACCESS_KEY,
-            },
-          });
-
-          const command = new GetObjectCommand({
-            Bucket: CONFIG.R2.BUCKET_NAME,
-            Key: CONFIG.R2.FILE_KEY,
-          });
-
-          // Generate 1-hour presigned URL (3,600 seconds)
-          downloadUrl = await getSignedUrl(s3Client, command, {
-            expiresIn: 3600,
-          });
-          console.log(
-            `[Cloudflare R2 Success] Generated 1-hour presigned URL for ${CONFIG.R2.FILE_KEY}`
-          );
-        } catch (r2Err: any) {
-          console.error("[Cloudflare R2 Error] Failed to generate presigned URL:", r2Err);
-        }
-
         const resendApiKey = CONFIG.RESEND.API_KEY;
         if (resendApiKey) {
           const resend = new Resend(resendApiKey);
-          const fromEmail = CONFIG.RESEND.FROM_EMAIL || "onboarding@resend.dev";
+          const primaryFrom = CONFIG.RESEND.FROM_EMAIL || "onboarding@resend.dev";
+          const fallbackFrom = "onboarding@resend.dev";
+          const fallbackRecipient = process.env.RESEND_FALLBACK_EMAIL || process.env.OWNER_EMAIL || email;
 
-          const emailPayload = {
-            from: fromEmail,
-            to: [email],
+          const createEmailPayload = (fromAddress: string, toAddress: string) => ({
+            from: fromAddress,
+            to: [toAddress],
             subject: "Your Ultimate Anime Voice Pack Bundle Download Link",
             html: `
               <!DOCTYPE html>
@@ -179,30 +186,58 @@ export async function POST(req: Request) {
                 </body>
               </html>
             `,
-          };
+          });
 
-          let emailResult;
+          let sendSuccess = false;
+
+          // Primary attempt: send to customer email
           try {
-            emailResult = await resend.emails.send(emailPayload);
-          } catch (firstErr: any) {
+            const primaryPayload = createEmailPayload(primaryFrom, email);
+            const emailResult = await resend.emails.send(primaryPayload);
+
+            if (emailResult.error) {
+              console.warn(
+                "[Resend Warning] Primary email dispatch returned error:",
+                emailResult.error
+              );
+            } else {
+              sendSuccess = true;
+              console.log(
+                `[Resend Success] Transactional email dispatched to ${email}. ID: ${emailResult.data?.id || "sent"}`
+              );
+            }
+          } catch (primaryErr: any) {
             console.warn(
-              "[Resend Warning] Primary email dispatch failed, attempting fallback to 'onboarding@resend.dev':",
-              firstErr?.message
+              "[Resend Warning] Primary email dispatch exception:",
+              primaryErr?.message || primaryErr
             );
-            emailResult = await resend.emails.send({
-              ...emailPayload,
-              from: "onboarding@resend.dev",
-            });
           }
 
-          console.log(
-            `[Resend Success] Transactional email dispatched to ${email}. ID: ${emailResult.data?.id || "sent"}`
-          );
+          // Fallback attempt: if primary failed (e.g. Resend restriction in onboarding@resend.dev mode)
+          if (!sendSuccess) {
+            console.log(
+              `[Resend Info] Attempting fallback email dispatch (From: ${fallbackFrom}, To: ${fallbackRecipient})...`
+            );
+            try {
+              const fallbackPayload = createEmailPayload(fallbackFrom, fallbackRecipient);
+              const fallbackResult = await resend.emails.send(fallbackPayload);
+
+              if (fallbackResult.error) {
+                console.error("RESEND ERROR:", fallbackResult.error);
+              } else {
+                console.log(
+                  `[Resend Success] Fallback email dispatched to ${fallbackRecipient}. ID: ${fallbackResult.data?.id || "sent"}`
+                );
+              }
+            } catch (fallbackErr: any) {
+              console.error("RESEND ERROR:", fallbackErr);
+            }
+          }
         } else {
           console.warn("[Resend Warning] RESEND_API_KEY missing. Skipping email dispatch.");
         }
-      } catch (emailFulfillmentErr: any) {
-        console.error("[Resend/R2 Fulfillment Exception] Non-fatal error during email dispatch:", emailFulfillmentErr);
+      } catch (err: any) {
+        console.error("RESEND ERROR:", err);
       }
     } else {
       console.warn(`[Stripe Webhook Warning] No email address associated with session ${sessionId}`);
