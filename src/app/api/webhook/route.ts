@@ -60,13 +60,21 @@ export async function POST(req: Request) {
     const sessionId = session.id;
 
     console.log(
-      `[Stripe Webhook] Processing checkout.session.completed for Session: ${sessionId}, Email: ${email}, Amount: $${amount}`
+      `[Stripe Webhook] Processing checkout.session.completed for Session: ${sessionId}, Email: ${email}, Amount: $${amount}, PaymentStatus: ${session.payment_status}`
     );
 
     if (!email) {
       console.warn(
         `[Stripe Webhook Warning] No email found for session ${sessionId}`
       );
+    }
+
+    // NULL GUARD FOR $0.00 TRANSACTIONS:
+    // Do NOT attempt to fetch stripe.paymentIntents.retrieve() if session.payment_intent is null (which occurs in $0.00 test transactions).
+    // Instead, verify session.payment_status === "paid".
+    if (session.payment_status !== "paid") {
+      console.warn(`[Stripe Webhook Warning] Session ${sessionId} payment_status is not 'paid' (${session.payment_status}). Skipping fulfillment.`);
+      return NextResponse.json({ received: true }, { status: 200 });
     }
 
     // 3. Database Logging (Supabase)

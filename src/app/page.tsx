@@ -10,42 +10,20 @@ import Tutorial from "../components/Tutorial";
 import Pricing from "../components/Pricing";
 import Footer from "../components/Footer";
 import Modal from "../components/Modal";
+import CheckoutModal from "../components/CheckoutModal";
 import { policies, Policy } from "../data/policies";
 
 export default function Home() {
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [activePolicy, setActivePolicy] = useState<Policy | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
-  const handleCheckout = async (submittedEmail: string) => {
-    setIsLoading(true);
-    try {
-      // Sync local email state in case checkout was triggered from Hero
+  const handleCheckout = (submittedEmail: string) => {
+    if (submittedEmail) {
       setEmail(submittedEmail);
-
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: submittedEmail }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.url) {
-        // Securely redirect to the returned Stripe URL (or simulated local success page)
-        window.location.href = data.url;
-      } else {
-        alert(data.error || "Something went wrong. Please try again.");
-      }
-    } catch (err) {
-      console.error("Stripe initiation failed:", err);
-      alert("Secure connection error. Please try again.");
-    } finally {
-      setIsLoading(false);
     }
+    setIsCheckoutOpen(true);
   };
 
   const handleOpenPolicy = (type: "terms" | "privacy" | "refund") => {
@@ -63,7 +41,7 @@ export default function Home() {
       <Navbar />
       <main style={{ minHeight: "100vh" }}>
         {/* Hero Section with main headings and scroll action buttons */}
-        <Hero />
+        <Hero onBuyNow={() => setIsCheckoutOpen(true)} />
         
         {/* Product specs, isolated samples, parodies, WhatsApp usage */}
         <Overview />
@@ -82,7 +60,7 @@ export default function Home() {
           email={email}
           setEmail={setEmail}
           onCheckout={handleCheckout}
-          isLoading={isLoading}
+          isLoading={false}
         />
       </main>
       
@@ -95,6 +73,14 @@ export default function Home() {
         onClose={handleClosePolicy}
         policy={activePolicy}
       />
+
+      {/* Stripe Embedded Checkout Modal */}
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        email={email}
+      />
     </>
   );
 }
+

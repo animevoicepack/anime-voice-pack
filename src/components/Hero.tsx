@@ -2,7 +2,11 @@
 
 import React, { useState, useEffect, useRef } from "react";
 
-export default function Hero() {
+interface HeroProps {
+  onBuyNow?: () => void;
+}
+
+export default function Hero({ onBuyNow }: HeroProps) {
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -71,7 +75,16 @@ export default function Hero() {
           </p>
 
           <div className="hero-actions">
-            <a href="#pricing" className="btn-primary hero-btn-buy">
+            <a
+              href="#pricing"
+              className="btn-primary hero-btn-buy"
+              onClick={(e) => {
+                if (onBuyNow) {
+                  e.preventDefault();
+                  onBuyNow();
+                }
+              }}
+            >
               Buy Now
             </a>
             <a href="#showcase" className="btn-secondary hero-btn-series">
