@@ -44,86 +44,86 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
 
   return (
     <div
-      className="modal-overlay"
-      onClick={onClose}
+      id="full-screen-checkout"
       style={{
         position: "fixed",
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(15, 23, 42, 0.65)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 9999,
-        padding: "16px",
+        width: "100vw",
+        height: "100vh",
+        minHeight: "100vh",
+        backgroundColor: "#ffffff",
+        overflowY: "auto",
+        zIndex: 99999,
       }}
     >
       <div
-        className="modal-content"
-        onClick={(e) => e.stopPropagation()}
         style={{
-          maxWidth: "680px",
           width: "100%",
-          maxHeight: "90vh",
-          overflowY: "auto",
-          padding: "32px 28px",
-          position: "relative",
-          background: "#ffffff",
-          borderRadius: "24px",
-          border: "1px solid #e2e8f0",
-          boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.07)",
-          color: "#0f172a",
+          maxWidth: "840px",
+          margin: "0 auto",
+          padding: "24px 20px 48px 20px",
+          boxSizing: "border-box",
         }}
       >
+        {/* Sleek Top Header Bar */}
         <div
-          className="modal-header"
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "20px",
-            borderBottom: "1px solid #e2e8f0",
+            borderBottom: "1px solid #f1f5f9",
             paddingBottom: "16px",
+            marginBottom: "24px",
           }}
         >
-          <div>
-            <h2 className="modal-title" style={{ fontSize: "1.375rem", fontWeight: 800, margin: 0, color: "#0f172a" }}>
-              Complete Your Order
-            </h2>
-            <p className="modal-subtitle" style={{ fontSize: "0.875rem", color: "#475569", margin: "4px 0 0 0" }}>
-              ANIME VOICE PACK &bull; Instant Secure Checkout
-            </p>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span
+              style={{
+                fontSize: "1.125rem",
+                fontWeight: 900,
+                letterSpacing: "1px",
+                background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                textTransform: "uppercase",
+              }}
+            >
+              ANIME VOICE PACK
+            </span>
+            <span style={{ fontSize: "0.875rem", color: "#94a3b8" }}>&bull;</span>
+            <span style={{ fontSize: "0.875rem", fontWeight: 600, color: "#475569" }}>
+              Secure Instant Checkout
+            </span>
           </div>
+
           <button
-            className="close-btn"
             onClick={onClose}
-            aria-label="Close modal"
+            aria-label="Close checkout"
             style={{
-              fontSize: "20px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "8px 16px",
+              fontSize: "0.875rem",
               fontWeight: 700,
               cursor: "pointer",
-              background: "#f1f5f9",
-              border: "1px solid #cbd5e1",
+              background: "#f8fafc",
+              border: "1px solid #e2e8f0",
               color: "#475569",
-              borderRadius: "50%",
-              width: "36px",
-              height: "36px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              lineHeight: 1,
+              borderRadius: "9999px",
               transition: "all 0.2s ease",
             }}
           >
-            &times;
+            <span>Close</span>
+            <span style={{ fontSize: "16px", lineHeight: 1 }}>&times;</span>
           </button>
         </div>
 
-        <div id="checkout" style={{ minHeight: "380px" }}>
+        {/* Stripe Embedded Checkout Container */}
+        <div id="checkout" style={{ width: "100%", minHeight: "500px" }}>
           <EmbeddedCheckoutProvider
             stripe={stripePromise}
             options={{ fetchClientSecret }}
@@ -132,16 +132,14 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
           </EmbeddedCheckoutProvider>
         </div>
 
-        {/* Trust Badges */}
+        {/* Bottom Security / Delivery Badge */}
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
             justifyContent: "center",
-            gap: "12px",
-            marginTop: "24px",
-            paddingTop: "16px",
-            borderTop: "1px solid #e2e8f0",
+            marginTop: "32px",
+            paddingTop: "20px",
+            borderTop: "1px solid #f1f5f9",
           }}
         >
           <div
@@ -154,11 +152,11 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
               color: "#475569",
               background: "#f8fafc",
               border: "1px solid #e2e8f0",
-              padding: "6px 14px",
+              padding: "8px 18px",
               borderRadius: "9999px",
             }}
           >
-            <span>⚡</span> Instant Direct Email Delivery
+            <span>⚡</span> Instant Direct Email Delivery via Resend & Cloudflare R2
           </div>
         </div>
       </div>
