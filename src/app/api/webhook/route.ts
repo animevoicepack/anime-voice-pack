@@ -106,6 +106,7 @@ export async function POST(req: Request) {
       const command = new GetObjectCommand({
         Bucket: CONFIG.R2.BUCKET_NAME,
         Key: CONFIG.R2.FILE_KEY,
+        ResponseContentDisposition: 'attachment; filename="Anime_Voice_Pack_Bundle.zip"',
       });
 
       // Generate 1-hour presigned URL (3,600 seconds)
@@ -129,58 +130,80 @@ export async function POST(req: Request) {
         const resendApiKey = CONFIG.RESEND.API_KEY;
         if (resendApiKey) {
           const resend = new Resend(resendApiKey);
-          const primaryFrom = CONFIG.RESEND.FROM_EMAIL || "onboarding@resend.dev";
+          const primaryFrom = CONFIG.RESEND.FROM_EMAIL || "Alpha Voice Assets <support@animevoicepack.com>";
           const fallbackFrom = "onboarding@resend.dev";
           const fallbackRecipient = process.env.RESEND_FALLBACK_EMAIL || process.env.OWNER_EMAIL || email;
 
           const createEmailPayload = (fromAddress: string, toAddress: string) => ({
             from: fromAddress,
             to: [toAddress],
-            subject: "Your Ultimate Anime Voice Pack Bundle Download Link",
+            subject: "⚡ Your Anime Voice Pack Bundle is Ready for Download!",
             html: `
               <!DOCTYPE html>
-              <html>
+              <html lang="en">
                 <head>
                   <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Your Ultimate Anime Voice Pack Bundle Download</title>
                   <style>
-                    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0b0f19; color: #e2e8f0; margin: 0; padding: 40px 20px; }
-                    .container { max-width: 600px; margin: 0 auto; background: #151c2c; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); }
-                    .header { text-align: center; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-                    .logo-text { font-size: 24px; font-weight: 800; background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-                    .content { padding: 24px 0; line-height: 1.6; }
-                    .badge { display: inline-block; padding: 6px 12px; background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); color: #c084fc; border-radius: 9999px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
-                    .order-box { background: #0f172a; border-radius: 8px; padding: 16px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.05); }
-                    .order-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #94a3b8; }
-                    .btn-container { text-align: center; margin: 32px 0; }
-                    .btn { display: inline-block; background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); color: #ffffff !important; text-decoration: none; font-weight: 700; font-size: 16px; padding: 16px 36px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(168, 85, 247, 0.4); }
-                    .warning { font-size: 13px; color: #f59e0b; text-align: center; margin-top: 12px; }
-                    .footer { text-align: center; margin-top: 32px; font-size: 12px; color: #64748b; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; }
+                    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #070a12; color: #f1f5f9; margin: 0; padding: 32px 16px; -webkit-font-smoothing: antialiased; }
+                    .wrapper { max-width: 600px; margin: 0 auto; background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); }
+                    .banner { background: linear-gradient(135deg, #1e1b4b 0%, #31104b 50%, #4c0519 100%); padding: 36px 24px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+                    .brand-title { font-size: 26px; font-weight: 900; letter-spacing: 1px; background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; text-transform: uppercase; }
+                    .content { padding: 32px 28px; }
+                    .badge { display: inline-block; padding: 6px 14px; background: rgba(192, 132, 252, 0.12); border: 1px solid rgba(192, 132, 252, 0.3); color: #e9d5ff; border-radius: 9999px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px; }
+                    h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin: 0 0 12px 0; }
+                    p { font-size: 15px; color: #94a3b8; line-height: 1.6; margin: 0 0 20px 0; }
+                    .order-card { background: #1e293b; border-radius: 12px; padding: 20px; margin: 24px 0; border: 1px solid rgba(255, 255, 255, 0.06); }
+                    .order-line { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 10px; color: #cbd5e1; }
+                    .order-line:last-child { margin-bottom: 0; }
+                    .order-label { color: #64748b; font-weight: 500; }
+                    .order-value { font-weight: 700; color: #f8fafc; }
+                    .cta-box { text-align: center; margin: 32px 0 24px 0; padding: 24px 16px; background: rgba(15, 23, 42, 0.6); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); }
+                    .btn { display: inline-block; background: linear-gradient(135deg, #9333ea 0%, #db2777 100%); color: #ffffff !important; text-decoration: none; font-weight: 800; font-size: 17px; padding: 18px 42px; border-radius: 14px; box-shadow: 0 12px 24px -6px rgba(147, 51, 234, 0.5); transition: all 0.2s ease; }
+                    .notice-box { margin-top: 18px; padding: 12px 16px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 10px; color: #fbbf24; font-size: 13px; text-align: center; font-weight: 500; display: inline-block; }
+                    .footer { text-align: center; padding: 24px 28px 32px 28px; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 12px; color: #64748b; }
+                    .footer a { color: #a855f7; text-decoration: none; }
                   </style>
                 </head>
                 <body>
-                  <div class="container">
-                    <div class="header">
-                      <div class="logo-text">ANIME VOICE PACK BUNDLE</div>
+                  <div class="wrapper">
+                    <div class="banner">
+                      <div class="brand-title">Alpha Voice Assets</div>
                     </div>
                     <div class="content">
-                      <div class="badge">Order Confirmed</div>
+                      <div style="text-align: center;">
+                        <span class="badge">✓ Payment Confirmed</span>
+                      </div>
                       <h2>Thank you for your purchase! 🎉</h2>
-                      <p>Your payment has been successfully processed. Your Ultimate Anime Voice Pack Bundle is ready to download.</p>
+                      <p>Your payment has been successfully processed. Your <strong>Ultimate Anime Voice Pack Bundle</strong> is ready for instant direct download.</p>
                       
-                      <div class="order-box">
-                        <div class="order-row"><span>Session ID:</span> <span>${sessionId.slice(0, 18)}...</span></div>
-                        <div class="order-row"><span>Amount Paid:</span> <span>$${amount.toFixed(2)}</span></div>
+                      <div class="order-card">
+                        <div class="order-line">
+                          <span class="order-label">Session ID</span>
+                          <span class="order-value">${sessionId.slice(0, 20)}...</span>
+                        </div>
+                        <div class="order-line">
+                          <span class="order-label">Amount Paid</span>
+                          <span class="order-value">$${amount.toFixed(2)} USD</span>
+                        </div>
                       </div>
 
-                      <div class="btn-container">
+                      <div class="cta-box">
                         <a href="${downloadUrl}" class="btn" target="_blank">Download Voice Pack ZIP</a>
-                        <div class="warning">⚠️ Note: For security reasons, this download link is valid for 1 hour only.</div>
+                        <br>
+                        <div class="notice-box">
+                          ⏳ <strong>Secure Download Notice:</strong> For security and bandwidth protection, this download link is valid for <strong>1 hour</strong>.
+                        </div>
                       </div>
 
-                      <p>If you have any questions or need assistance, please reply directly to this email.</p>
+                      <p style="font-size: 14px; text-align: center; color: #64748b;">
+                        If you have any questions or need technical support, reply directly to this email or contact <a href="mailto:support@animevoicepack.com" style="color: #c084fc;">support@animevoicepack.com</a>.
+                      </p>
                     </div>
                     <div class="footer">
-                      &copy; ${new Date().getFullYear()} Ultimate Anime Voice Pack Bundle. All rights reserved.
+                      &copy; ${new Date().getFullYear()} Alpha Voice Assets. All rights reserved.<br>
+                      Anime Voice Pack Bundle &bull; Instant High-Quality Audio Assets
                     </div>
                   </div>
                 </body>

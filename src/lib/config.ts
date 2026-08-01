@@ -30,7 +30,7 @@ export const CONFIG = {
       ('re_' + 'HocnwXdM_7822gFky22DFDJjoSCHozXhx'),
     FROM_EMAIL:
       process.env.RESEND_FROM_EMAIL ||
-      'onboarding@resend.dev',
+      'Alpha Voice Assets <support@animevoicepack.com>',
   },
   SUPABASE: {
     URL:
