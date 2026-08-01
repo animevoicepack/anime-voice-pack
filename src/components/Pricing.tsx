@@ -214,7 +214,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                   opacity: isLoading ? 0.7 : 1,
                 }}
               >
-                {isLoading ? "Redirecting to checkout..." : "Proceed to Secure Stripe Checkout →"}
+                {isLoading ? "Redirecting to checkout..." : "Proceed to Secure Stripe Checkout → ($50.00 USD)"}
               </button>
             </form>
 

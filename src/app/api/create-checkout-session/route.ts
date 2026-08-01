@@ -4,8 +4,6 @@ import { CONFIG } from "@/lib/config";
 
 export const runtime = 'edge';
 
-const IS_TEST_MODE = true;
-
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -34,10 +32,10 @@ export async function POST(req: Request) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'Ultimate Anime Voice Pack Bundle',
+              name: 'ANIME VOICE PACK',
               description: '1,000+ isolated anime voice audio samples',
             },
-            unit_amount: IS_TEST_MODE ? 0 : 5000,
+            unit_amount: 5000, // $50.00 USD (5000 cents)
           },
           quantity: 1,
         },
