@@ -50,7 +50,7 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
 
         if (!isMounted) return;
 
-        const checkout: StripeEmbeddedCheckout = await (stripe as any).initEmbeddedCheckout({
+        const checkout = await (stripe as any).createEmbeddedCheckoutPage({
           clientSecret: data.clientSecret,
         });
 

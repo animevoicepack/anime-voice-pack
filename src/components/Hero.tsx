@@ -79,9 +79,14 @@ export default function Hero({ onBuyNow }: HeroProps) {
               href="#pricing"
               className="btn-primary hero-btn-buy"
               onClick={(e) => {
+                e.preventDefault();
                 if (onBuyNow) {
-                  e.preventDefault();
                   onBuyNow();
+                } else {
+                  const pricingSection = document.getElementById("pricing");
+                  if (pricingSection) {
+                    pricingSection.scrollIntoView({ behavior: "smooth" });
+                  }
                 }
               }}
             >

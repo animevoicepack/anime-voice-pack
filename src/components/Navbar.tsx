@@ -4,6 +4,14 @@ import React from "react";
 import Image from "next/image";
 
 export default function Navbar() {
+  const handleScrollToPricing = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const pricingSection = document.getElementById("pricing");
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <nav className="navbar glass">
       <div className="navbar-container">
@@ -25,7 +33,7 @@ export default function Navbar() {
           <a href="#overview" className="nav-link">Overview</a>
           <a href="#showcase" className="nav-link">Anime</a>
           <a href="#tutorial" className="nav-link">Tutorial</a>
-          <a href="#pricing" className="nav-link btn-nav">Buy Now</a>
+          <a href="#pricing" onClick={handleScrollToPricing} className="nav-link btn-nav">Buy Now</a>
         </div>
       </div>
     </nav>

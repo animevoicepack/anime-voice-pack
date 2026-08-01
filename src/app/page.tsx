@@ -41,7 +41,7 @@ export default function Home() {
       <Navbar />
       <main style={{ minHeight: "100vh" }}>
         {/* Hero Section with main headings and scroll action buttons */}
-        <Hero onBuyNow={() => setIsCheckoutOpen(true)} />
+        <Hero />
         
         {/* Product specs, isolated samples, parodies, WhatsApp usage */}
         <Overview />
