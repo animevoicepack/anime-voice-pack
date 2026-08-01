@@ -67,16 +67,24 @@ export async function POST(req: Request) {
   if (event && event.type === "checkout.session.completed") {
     const session = event.data?.object || {};
 
-    const email =
+    const customerEmail =
       session.customer_details?.email ||
-      session.customer_email ||
-      "";
+      session.customer_email;
+
     const rawAmount = session.amount_total ?? 0;
     const amount = rawAmount / 100;
     const sessionId = session.id || "session_unknown";
 
+    if (!customerEmail) {
+      console.error(`[Stripe Webhook Error] No customer email found in session ${sessionId}. Stopping fulfillment.`);
+      return new Response(JSON.stringify({ received: true, error: "Missing customer email" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     console.log(
-      `[Stripe Webhook] Processing checkout.session.completed for Session: ${sessionId}, Email: ${email}, Amount: $${amount}, PaymentStatus: ${session.payment_status}`
+      `[Stripe Webhook] Processing checkout.session.completed for Session: ${sessionId}, Customer Email: ${customerEmail}, Amount: $${amount}, PaymentStatus: ${session.payment_status}`
     );
 
     // NULL GUARD FOR $0.00 TRANSACTIONS:
@@ -122,7 +130,7 @@ export async function POST(req: Request) {
         const { error: dbError } = await supabaseClient.from("orders").insert([
           {
             session_id: sessionId,
-            email: email,
+            email: customerEmail,
             amount: amount,
             status: "completed",
             created_at: new Date().toISOString(),
@@ -173,119 +181,76 @@ export async function POST(req: Request) {
       downloadUrl = "https://animevoicepack.com/download";
     }
 
-    // 5. INDEPENDENT RESEND EMAIL DISPATCH
-    if (email) {
-      try {
-        const resendApiKey = CONFIG.RESEND.API_KEY;
-        if (resendApiKey) {
-          const resend = new Resend(resendApiKey);
-          const primaryFrom = CONFIG.RESEND.FROM_EMAIL || "ANIME VOICE PACK <orders@animevoicepack.com>";
-          const fallbackFrom = "onboarding@resend.dev";
-          const fallbackRecipient = process.env.RESEND_FALLBACK_EMAIL || process.env.OWNER_EMAIL || email;
+    // 5. INDEPENDENT RESEND EMAIL DISPATCH (STRICT CUSTOMER RECIPIENT ONLY)
+    try {
+      const resendApiKey = CONFIG.RESEND.API_KEY;
+      if (resendApiKey) {
+        const resend = new Resend(resendApiKey);
+        const primaryFrom = CONFIG.RESEND.FROM_EMAIL || "ANIME VOICE PACK <orders@animevoicepack.com>";
 
-          const createEmailPayload = (fromAddress: string, toAddress: string) => ({
-            from: fromAddress,
-            to: [toAddress],
-            subject: "⚡ ANIME VOICE PACK - Your Download Link",
-            html: `
-              <!DOCTYPE html>
-              <html lang="en">
-                <head>
-                  <meta charset="utf-8">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  <title>ANIME VOICE PACK - Download Link</title>
-                  <style>
-                    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 40px 16px; -webkit-font-smoothing: antialiased; }
-                    .wrapper { max-width: 560px; margin: 0 auto; background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 36px 28px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); text-align: center; }
-                    .brand-title { font-size: 28px; font-weight: 900; letter-spacing: 1.5px; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 24px 0; text-transform: uppercase; }
-                    .badge { display: inline-block; padding: 6px 16px; background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); color: #c084fc; border-radius: 9999px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px; }
-                    h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin: 0 0 12px 0; }
-                    p { font-size: 15px; color: #94a3b8; line-height: 1.6; margin: 0 0 28px 0; }
-                    .cta-box { text-align: center; margin: 28px 0 24px 0; }
-                    .btn { display: inline-block; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); color: #ffffff !important; text-decoration: none; font-weight: 800; font-size: 17px; padding: 18px 42px; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4); }
-                    .notice-box { margin-top: 24px; padding: 12px 18px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 10px; color: #fbbf24; font-size: 13px; text-align: center; font-weight: 500; display: inline-block; }
-                    .footer { text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; color: #64748b; }
-                  </style>
-                </head>
-                <body>
-                  <div class="wrapper">
-                    <div class="brand-title">ANIME VOICE PACK</div>
-                    <div style="text-align: center;">
-                      <span class="badge">✓ PAYMENT CONFIRMED</span>
-                    </div>
-                    <h2>Thank you for your purchase! 🎉</h2>
-                    <p>Your payment has been successfully processed. Your <strong>ANIME VOICE PACK</strong> is ready for instant download.</p>
+        const emailPayload = {
+          from: primaryFrom,
+          to: [customerEmail],
+          subject: "⚡ ANIME VOICE PACK - Your Download Link",
+          html: `
+            <!DOCTYPE html>
+            <html lang="en">
+              <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>ANIME VOICE PACK - Download Link</title>
+                <style>
+                  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 40px 16px; -webkit-font-smoothing: antialiased; }
+                  .wrapper { max-width: 560px; margin: 0 auto; background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 36px 28px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); text-align: center; }
+                  .brand-title { font-size: 28px; font-weight: 900; letter-spacing: 1.5px; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 24px 0; text-transform: uppercase; }
+                  .badge { display: inline-block; padding: 6px 16px; background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); color: #c084fc; border-radius: 9999px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px; }
+                  h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin: 0 0 12px 0; }
+                  p { font-size: 15px; color: #94a3b8; line-height: 1.6; margin: 0 0 28px 0; }
+                  .cta-box { text-align: center; margin: 28px 0 24px 0; }
+                  .btn { display: inline-block; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); color: #ffffff !important; text-decoration: none; font-weight: 800; font-size: 17px; padding: 18px 42px; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4); }
+                  .notice-box { margin-top: 24px; padding: 12px 18px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 10px; color: #fbbf24; font-size: 13px; text-align: center; font-weight: 500; display: inline-block; }
+                  .footer { text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; color: #64748b; }
+                </style>
+              </head>
+              <body>
+                <div class="wrapper">
+                  <div class="brand-title">ANIME VOICE PACK</div>
+                  <div style="text-align: center;">
+                    <span class="badge">✓ PAYMENT CONFIRMED</span>
+                  </div>
+                  <h2>Thank you for your purchase! 🎉</h2>
+                  <p>Your payment has been successfully processed. Your <strong>ANIME VOICE PACK</strong> is ready for instant download.</p>
 
-                    <div class="cta-box">
-                      <a href="${downloadUrl}" class="btn" target="_blank">Download Voice Pack ZIP</a>
-                      <br>
-                      <div class="notice-box">
-                        ⏳ <strong>Secure Download Notice:</strong> For security and bandwidth protection, this download link is active for 2 hours.
-                      </div>
-                    </div>
-
-                    <div class="footer">
-                      &copy; ${new Date().getFullYear()} ANIME VOICE PACK. All rights reserved.
+                  <div class="cta-box">
+                    <a href="${downloadUrl}" class="btn" target="_blank">Download Voice Pack ZIP</a>
+                    <br>
+                    <div class="notice-box">
+                      ⏳ <strong>Secure Download Notice:</strong> For security and bandwidth protection, this download link is active for 2 hours.
                     </div>
                   </div>
-                </body>
-              </html>
-            `,
-          });
 
-          let sendSuccess = false;
+                  <div class="footer">
+                    &copy; ${new Date().getFullYear()} ANIME VOICE PACK. All rights reserved.
+                  </div>
+                </div>
+              </body>
+            </html>
+          `,
+        };
 
-          // Primary attempt: send to customer email
-          try {
-            const primaryPayload = createEmailPayload(primaryFrom, email);
-            const emailResult = await resend.emails.send(primaryPayload);
-
-            if (emailResult.error) {
-              console.warn(
-                "[Resend Warning] Primary email dispatch returned error:",
-                emailResult.error
-              );
-            } else {
-              sendSuccess = true;
-              console.log(
-                `[Resend Success] Transactional email dispatched to ${email}. ID: ${emailResult.data?.id || "sent"}`
-              );
-            }
-          } catch (primaryErr: any) {
-            console.warn(
-              "[Resend Warning] Primary email dispatch exception:",
-              primaryErr?.message || primaryErr
-            );
-          }
-
-          // Fallback attempt: if primary failed (e.g. Resend restriction in onboarding@resend.dev mode)
-          if (!sendSuccess) {
-            console.log(
-              `[Resend Info] Attempting fallback email dispatch (From: ${fallbackFrom}, To: ${fallbackRecipient})...`
-            );
-            try {
-              const fallbackPayload = createEmailPayload(fallbackFrom, fallbackRecipient);
-              const fallbackResult = await resend.emails.send(fallbackPayload);
-
-              if (fallbackResult.error) {
-                console.error("RESEND ERROR:", fallbackResult.error);
-              } else {
-                console.log(
-                  `[Resend Success] Fallback email dispatched to ${fallbackRecipient}. ID: ${fallbackResult.data?.id || "sent"}`
-                );
-              }
-            } catch (fallbackErr: any) {
-              console.error("RESEND ERROR:", fallbackErr);
-            }
-          }
+        const emailResult = await resend.emails.send(emailPayload);
+        if (emailResult.error) {
+          console.error("RESEND ERROR:", emailResult.error);
         } else {
-          console.warn("[Resend Warning] RESEND_API_KEY missing. Skipping email dispatch.");
+          console.log(
+            `[Resend Success] Transactional email dispatched to ${customerEmail}. ID: ${emailResult.data?.id || "sent"}`
+          );
         }
-      } catch (err: any) {
-        console.error("RESEND ERROR:", err);
+      } else {
+        console.warn("[Resend Warning] RESEND_API_KEY missing. Skipping email dispatch.");
       }
-    } else {
-      console.warn(`[Stripe Webhook Warning] No email address associated with session ${sessionId}`);
+    } catch (err: any) {
+      console.error("RESEND ERROR:", err);
     }
   }
 
