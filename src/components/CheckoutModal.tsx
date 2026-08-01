@@ -47,17 +47,8 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
 
         if (!isMounted) return;
 
-        const checkout = await (stripe as any).createEmbeddedCheckoutPage({
+        const checkout = await (stripe as any).initEmbeddedCheckout({
           clientSecret: data.clientSecret,
-          appearance: {
-            theme: "stripe",
-            variables: {
-              colorPrimary: "#8b5cf6",
-              colorBackground: "#ffffff",
-              colorText: "#0f172a",
-              borderRadius: "12px",
-            },
-          },
         });
 
         checkoutRef.current = checkout;
