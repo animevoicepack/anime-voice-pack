@@ -113,14 +113,15 @@ export async function POST(req: Request) {
     const r2AccountId = process.env.R2_ACCOUNT_ID;
     const r2AccessKeyId = process.env.R2_ACCESS_KEY_ID;
     const r2SecretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
+    const r2Endpoint = process.env.R2_ENDPOINT || (r2AccountId ? `https://${r2AccountId}.r2.cloudflarestorage.com` : undefined);
     const r2BucketName = process.env.R2_BUCKET_NAME || "anime-voice-packs";
     const r2FileKey = process.env.R2_FILE_KEY || "anime-voice-pack.zip";
 
-    if (r2AccountId && r2AccessKeyId && r2SecretAccessKey) {
+    if (r2Endpoint && r2AccessKeyId && r2SecretAccessKey) {
       try {
         const s3Client = new S3Client({
           region: "auto",
-          endpoint: `https://${r2AccountId}.r2.cloudflarestorage.com`,
+          endpoint: r2Endpoint,
           credentials: {
             accessKeyId: r2AccessKeyId,
             secretAccessKey: r2SecretAccessKey,
@@ -132,12 +133,12 @@ export async function POST(req: Request) {
           Key: r2FileKey,
         });
 
-        // Generate 24-hour presigned URL (24 * 60 * 60 = 86,400 seconds)
+        // Generate 1-hour presigned URL (3,600 seconds)
         downloadUrl = await getSignedUrl(s3Client, command, {
-          expiresIn: 86400,
+          expiresIn: 3600,
         });
         console.log(
-          `[Cloudflare R2] Successfully generated 24-hour presigned URL for ${r2FileKey}`
+          `[Cloudflare R2] Successfully generated 1-hour presigned URL for ${r2FileKey}`
         );
       } catch (r2Err) {
         console.error("[Cloudflare R2 Error] Failed to generate presigned URL:", r2Err);
@@ -160,7 +161,7 @@ export async function POST(req: Request) {
         const emailPayload = {
           from: fromEmail,
           to: [email],
-          subject: "⚡ Your Ultimate Anime Voice Pack Bundle Download is Ready!",
+          subject: "Your Ultimate Anime Voice Pack Bundle Download Link",
           html: `
             <!DOCTYPE html>
             <html>
@@ -198,7 +199,7 @@ export async function POST(req: Request) {
 
                     <div class="btn-container">
                       <a href="${downloadUrl}" class="btn" target="_blank">Download Voice Pack ZIP</a>
-                      <div class="warning">⚠️ Note: This presigned download link is active for 24 hours.</div>
+                      <div class="warning">⚠️ Note: For security reasons, this download link is valid for 1 hour only.</div>
                     </div>
 
                     <p>If you have any questions or need assistance, please reply directly to this email.</p>
