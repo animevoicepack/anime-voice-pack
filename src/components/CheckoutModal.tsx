@@ -14,7 +14,7 @@ interface CheckoutModalProps {
 const publishableKey =
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ||
   CONFIG.STRIPE.PUBLISHABLE_KEY ||
-  "pk_test_51TzJCVK9A1fbNp7ufRqCkc6UKC2dlxVu4xOVixmGbuAwaq1z8IOAcafgTZIoXai6BbfkRe0qfrJ86AD9QNmtVITb00wM0VfWb4";
+  "pk_live_51TzJCVK9A1fbNp7uAqwHFfzr6ac07q29p9QDjNNe0brSOgWLeZvTPCxyzdKzM16av0HneUJ7sAe6V1xK2DhV6WrB00kSuwQpav";
 
 const stripePromise = loadStripe(publishableKey);
 
