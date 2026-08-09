@@ -34,37 +34,19 @@ export async function POST(req: Request) {
 
     let paidSession: Stripe.Checkout.Session | null = null;
 
-    // Search Stripe checkout sessions for completed paid session matching customer email
+    // List recent checkout sessions and find completed paid session matching customer email
     try {
-      const searchResult = await stripe.checkout.sessions.search({
-        query: `status:'complete'`,
+      const listResult = await stripe.checkout.sessions.list({
         limit: 100,
       });
 
       paidSession =
-        searchResult.data.find((s) => {
+        listResult.data.find((s) => {
           const sEmail = (s.customer_details?.email || s.customer_email || "").toLowerCase();
           return sEmail === targetEmail && s.payment_status === "paid";
         }) || null;
-    } catch (searchErr) {
-      console.warn("[Stripe Search Fallback]:", searchErr);
-    }
-
-    // Fallback: List recent checkout sessions if search query is restricted
-    if (!paidSession) {
-      try {
-        const listResult = await stripe.checkout.sessions.list({
-          limit: 100,
-        });
-
-        paidSession =
-          listResult.data.find((s) => {
-            const sEmail = (s.customer_details?.email || s.customer_email || "").toLowerCase();
-            return sEmail === targetEmail && s.payment_status === "paid";
-          }) || null;
-      } catch (listErr) {
-        console.error("[Stripe List Fallback Error]:", listErr);
-      }
+    } catch (listErr) {
+      console.error("[Stripe List Checkout Sessions Error]:", listErr);
     }
 
     if (!paidSession) {
