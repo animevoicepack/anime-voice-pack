@@ -1,0 +1,123 @@
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { CONFIG } from "@/lib/config";
+
+export const runtime = "edge";
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json().catch(() => ({}));
+    const rawEmail = typeof body.email === "string" ? body.email.trim() : "";
+
+    if (!rawEmail) {
+      return NextResponse.json(
+        { success: false, error: "Please enter a valid email address." },
+        { status: 400 }
+      );
+    }
+
+    const targetEmail = rawEmail.toLowerCase();
+
+    const stripeSecretKey = CONFIG.STRIPE.SECRET_KEY;
+    if (!stripeSecretKey) {
+      return NextResponse.json(
+        { success: false, error: "Stripe configuration error: missing secret key." },
+        { status: 500 }
+      );
+    }
+
+    const stripe = new Stripe(stripeSecretKey, {
+      apiVersion: "2025-02-24.acacia" as any,
+    });
+
+    let paidSession: Stripe.Checkout.Session | null = null;
+
+    // Search Stripe checkout sessions for completed paid session matching customer email
+    try {
+      const searchResult = await stripe.checkout.sessions.search({
+        query: `status:'complete'`,
+        limit: 100,
+      });
+
+      paidSession =
+        searchResult.data.find((s) => {
+          const sEmail = (s.customer_details?.email || s.customer_email || "").toLowerCase();
+          return sEmail === targetEmail && s.payment_status === "paid";
+        }) || null;
+    } catch (searchErr) {
+      console.warn("[Stripe Search Fallback]:", searchErr);
+    }
+
+    // Fallback: List recent checkout sessions if search query is restricted
+    if (!paidSession) {
+      try {
+        const listResult = await stripe.checkout.sessions.list({
+          limit: 100,
+        });
+
+        paidSession =
+          listResult.data.find((s) => {
+            const sEmail = (s.customer_details?.email || s.customer_email || "").toLowerCase();
+            return sEmail === targetEmail && s.payment_status === "paid";
+          }) || null;
+      } catch (listErr) {
+        console.error("[Stripe List Fallback Error]:", listErr);
+      }
+    }
+
+    if (!paidSession) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "No completed order was found for this email address. Please check your spelling or contact support.",
+        },
+        { status: 404 }
+      );
+    }
+
+    // Generate signed Cloudflare R2 download URL expiring in 2 hours (7,200 seconds)
+    const s3Client = new S3Client({
+      region: "auto",
+      endpoint: CONFIG.R2.ENDPOINT,
+      credentials: {
+        accessKeyId: CONFIG.R2.ACCESS_KEY_ID,
+        secretAccessKey: CONFIG.R2.SECRET_ACCESS_KEY,
+      },
+    });
+
+    const command = new GetObjectCommand({
+      Bucket: CONFIG.R2.BUCKET_NAME,
+      Key: CONFIG.R2.FILE_KEY,
+      ResponseContentDisposition: 'attachment; filename="Anime_Voice_Pack_Mp3.zip"',
+      ResponseContentType: "application/zip",
+    });
+
+    const downloadUrl = await getSignedUrl(s3Client, command, {
+      expiresIn: 7200,
+    });
+
+    const customerEmail = paidSession.customer_details?.email || paidSession.customer_email || targetEmail;
+    const amountTotal = paidSession.amount_total ? (paidSession.amount_total / 100).toFixed(2) : "50.00";
+    const currency = (paidSession.currency || "usd").toUpperCase();
+
+    return NextResponse.json({
+      success: true,
+      downloadUrl,
+      order: {
+        sessionId: paidSession.id,
+        customerEmail,
+        amountTotal,
+        currency,
+        paymentStatus: paidSession.payment_status,
+      },
+    });
+  } catch (err: any) {
+    console.error("[Retrieve Access Exception]:", err);
+    return NextResponse.json(
+      { success: false, error: err?.message || "Failed to process retrieval request." },
+      { status: 500 }
+    );
+  }
+}

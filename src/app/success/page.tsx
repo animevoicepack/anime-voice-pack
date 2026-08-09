@@ -18,15 +18,20 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id") || searchParams.get("sessionId");
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [order, setOrder] = useState<OrderDetails | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Email Lookup Form State (when no session_id in URL)
+  const [lookupEmail, setLookupEmail] = useState("");
+  const [lookupLoading, setLookupLoading] = useState(false);
+  const [lookupError, setLookupError] = useState<string | null>(null);
+
   useEffect(() => {
     if (!sessionId) {
+      // No session_id parameter: present order retrieval form
       setLoading(false);
-      setError("No session ID found. Please complete your checkout to access the download.");
       return;
     }
 
@@ -55,6 +60,42 @@ function SuccessContent() {
 
     verifyAndFetchUrl();
   }, [sessionId]);
+
+  const handleEmailLookupSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!lookupEmail || !lookupEmail.trim()) {
+      setLookupError("Please enter your checkout email address.");
+      return;
+    }
+
+    try {
+      setLookupLoading(true);
+      setLookupError(null);
+
+      const res = await fetch("/api/retrieve-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: lookupEmail.trim() }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(
+          data.error || "No completed order found for this email address. Please check your spelling."
+        );
+      }
+
+      setDownloadUrl(data.downloadUrl);
+      if (data.order) {
+        setOrder(data.order);
+      }
+    } catch (err: any) {
+      console.error("[Email Lookup Error]:", err);
+      setLookupError(err.message || "Could not retrieve order. Please try again.");
+    } finally {
+      setLookupLoading(false);
+    }
+  };
 
   return (
     <main
@@ -146,7 +187,125 @@ function SuccessContent() {
                 ← Return to Homepage
               </Link>
             </div>
+          ) : !downloadUrl ? (
+            /* IF NO session_id OR NO DOWNLOAD URL RETURNED YET: SHOW "RETRIEVE YOUR ORDER" CARD */
+            <div>
+              <div
+                style={{
+                  width: "72px",
+                  height: "72px",
+                  margin: "0 auto 20px auto",
+                  background: "rgba(139, 92, 246, 0.1)",
+                  border: "1px solid rgba(139, 92, 246, 0.3)",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 10px 20px -5px rgba(139, 92, 246, 0.2)",
+                }}
+              >
+                <span style={{ fontSize: "32px" }}>🔍</span>
+              </div>
+
+              <div
+                style={{
+                  display: "inline-block",
+                  padding: "4px 14px",
+                  background: "rgba(139, 92, 246, 0.1)",
+                  border: "1px solid rgba(139, 92, 246, 0.25)",
+                  color: "#7c3aed",
+                  fontSize: "0.75rem",
+                  fontWeight: 800,
+                  borderRadius: "9999px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  marginBottom: "16px",
+                }}
+              >
+                Order Lookup
+              </div>
+
+              <h1 style={{ fontSize: "2rem", fontWeight: 900, color: "#0f172a", margin: "0 0 12px 0" }}>
+                Retrieve Your Order
+              </h1>
+
+              <p style={{ fontSize: "1rem", color: "#475569", lineHeight: "1.6", margin: "0 0 28px 0" }}>
+                Enter the email address you used at checkout to access your <strong>1,000+ Anime Voice Pack</strong> download link.
+              </p>
+
+              {/* Retrieval Form */}
+              <form onSubmit={handleEmailLookupSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px", textAlign: "left", marginBottom: "28px" }}>
+                <div>
+                  <label htmlFor="lookup-email" style={{ display: "block", fontSize: "0.875rem", fontWeight: 700, color: "#0f172a", marginBottom: "8px" }}>
+                    Checkout Email Address:
+                  </label>
+                  <input
+                    id="lookup-email"
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={lookupEmail}
+                    onChange={(e) => {
+                      setLookupEmail(e.target.value);
+                      if (lookupError) setLookupError(null);
+                    }}
+                    disabled={lookupLoading}
+                    style={{
+                      width: "100%",
+                      padding: "14px 16px",
+                      fontSize: "0.95rem",
+                      color: "#0f172a",
+                      backgroundColor: "#ffffff",
+                      border: lookupError ? "2px solid #ef4444" : "1px solid #cbd5e1",
+                      borderRadius: "12px",
+                      outline: "none",
+                      boxSizing: "border-box",
+                      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
+                    }}
+                  />
+                  {lookupError && (
+                    <div style={{ marginTop: "10px", padding: "10px 14px", background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: "10px", color: "#991b1b", fontSize: "0.875rem", fontWeight: 600 }}>
+                      ⚠️ {lookupError}
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={lookupLoading}
+                  style={{
+                    width: "100%",
+                    padding: "16px 24px",
+                    fontSize: "1.05rem",
+                    fontWeight: 800,
+                    color: "#ffffff",
+                    background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)",
+                    border: "none",
+                    borderRadius: "12px",
+                    cursor: lookupLoading ? "not-allowed" : "pointer",
+                    boxShadow: "0 10px 25px -5px rgba(139, 92, 246, 0.4)",
+                    opacity: lookupLoading ? 0.7 : 1,
+                  }}
+                >
+                  {lookupLoading ? "Searching for your order..." : "Find My Download →"}
+                </button>
+              </form>
+
+              <div>
+                <Link
+                  href="/"
+                  style={{
+                    fontSize: "0.875rem",
+                    fontWeight: 700,
+                    color: "#64748b",
+                    textDecoration: "none",
+                  }}
+                >
+                  ← Return to Homepage
+                </Link>
+              </div>
+            </div>
           ) : (
+            /* PAID & VERIFIED DOWNLOAD VIEW */
             <div>
               {/* Animated Green Checkmark Badge */}
               <div
