@@ -403,7 +403,7 @@ function SuccessContent() {
 
               {/* Prominent Direct Download Button */}
               {downloadUrl && (
-                <div style={{ marginBottom: "24px" }}>
+                <div style={{ marginBottom: "20px" }}>
                   <a
                     href={downloadUrl}
                     download
@@ -428,6 +428,27 @@ function SuccessContent() {
                   </a>
                 </div>
               )}
+
+              {/* Backup Notice Box */}
+              <div
+                style={{
+                  background: "#f0fdf4",
+                  border: "1px solid #bbf7d0",
+                  borderRadius: "14px",
+                  padding: "18px 20px",
+                  margin: "0 0 24px 0",
+                  textAlign: "left",
+                  color: "#166534",
+                  boxShadow: "0 2px 8px rgba(34, 197, 94, 0.06)",
+                }}
+              >
+                <h4 style={{ fontSize: "0.95rem", fontWeight: 800, margin: "0 0 6px 0", color: "#14532d" }}>
+                  📧 Having trouble or need to download later?
+                </h4>
+                <p style={{ fontSize: "0.875rem", margin: 0, lineHeight: "1.5", color: "#166534" }}>
+                  A copy of your purchase receipt with a link back to this page has been sent to your email by Stripe. If your download fails, expires, or you need to access your files again later, simply click the link in your email receipt and enter your email to get a fresh download link anytime.
+                </p>
+              </div>
 
               {/* Security & 2-Hour Link Expiration Note */}
               <div
