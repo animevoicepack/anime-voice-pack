@@ -22,11 +22,16 @@ export async function POST(req: Request) {
       apiVersion: "2025-02-24.acacia" as any,
     });
 
+    const host = req.headers.get("host") || "animevoicepack.com";
+    const protocol = host.includes("localhost") || host.includes("127.0.0.1") ? "http" : "https";
+    const origin = `${protocol}://${host}`;
+
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
       mode: 'payment',
-      return_url: 'https://animevoicepack.com/success?session_id={CHECKOUT_SESSION_ID}',
+      return_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       customer_email: email,
+      payment_intent_data: email ? { receipt_email: email } : undefined,
       line_items: [
         {
           price_data: {

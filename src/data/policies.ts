@@ -23,8 +23,8 @@ export const policies: Record<string, Policy> = {
     content: [
       "Alpha Voice Assets LLC ('we', 'us', or 'our') values your privacy and is committed to protecting your personal data.",
       "1. Information We Collect: We collect your email address when you initiate a purchase or request a download link. This email is strictly required to deliver the digital package and confirm your purchase.",
-      "2. How We Use Your Data: Your email is used to generate a secure Cloudflare R2 download link, dispatch the download email via Resend, and create a customer record in our Supabase secure backend. Alpha Voice Assets LLC does not sell, rent, or lease customer lists to third parties.",
-      "3. Data Retention: Your transaction details and email address are stored securely in our database. You can request deletion of your record at any time by contacting our support team.",
+      "2. How We Use Your Data: Your email is used to process your Stripe checkout session and generate a secure Cloudflare R2 download link. Alpha Voice Assets LLC does not sell, rent, or lease customer lists to third parties.",
+      "3. Data Retention: Your transaction details and email address are processed securely via Stripe. You can request deletion of your record at any time by contacting our support team.",
       "4. Security Protocols: All API operations are isolated in server-side Next.js route environments. No sensitive API keys are exposed to the client-side browser.",
       "5. Third-Party Services: We partner with Stripe for secure payment processing. Stripe processes your credit card details securely on their servers. We do not store your financial payment credentials."
     ]
@@ -35,7 +35,7 @@ export const policies: Record<string, Policy> = {
     content: [
       "Please read this policy carefully before purchasing digital products from Alpha Voice Assets LLC.",
       "Due to the digital nature of downloadable products, all sales are final. Products are strictly non-refundable once the download link has been generated, accessed, or delivered.",
-      "Once you complete your payment, your unique secure download link is immediately generated and dispatched to your email address. Because you receive instant access to the digital assets upon completion of payment, Alpha Voice Assets LLC cannot offer refunds, returns, or cancellations under any circumstances.",
+      "Once you complete your payment, your unique secure download link is immediately generated via Cloudflare R2. Because you receive instant access to the digital assets upon completion of payment, Alpha Voice Assets LLC cannot offer refunds, returns, or cancellations under any circumstances.",
       "If you experience technical issues receiving the email or downloading the package, please contact our support team at animevoicepack1@gmail.com with your transaction details. We will ensure you receive access to your files promptly."
     ]
   }

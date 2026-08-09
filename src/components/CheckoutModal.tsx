@@ -156,7 +156,7 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
               borderRadius: "9999px",
             }}
           >
-            <span>⚡</span> Instant Direct Email Delivery via Resend & Cloudflare R2
+            <span>⚡</span> Instant Secure Download via Cloudflare R2
           </div>
         </div>
       </div>

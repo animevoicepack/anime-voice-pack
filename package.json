@@ -1,5 +1,5 @@
 {
-  "name": "next_temp",
+  "name": "anime-voice-pack",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,11 +17,9 @@
     "@aws-sdk/s3-request-presigner": "^3.1097.0",
     "@stripe/react-stripe-js": "^6.8.0",
     "@stripe/stripe-js": "^9.12.1",
-    "@supabase/supabase-js": "^2.111.0",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "resend": "^4.1.2",
     "stripe": "^17.7.0"
   },
   "devDependencies": {

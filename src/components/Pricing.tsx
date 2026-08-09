@@ -244,13 +244,13 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                   borderRadius: "9999px",
                 }}
               >
-                <span>⚡</span> Instant Direct Email Delivery
+                <span>⚡</span> Instant Secure Cloudflare R2 Download
               </div>
             </div>
 
             {/* Security Disclaimer */}
             <p style={{ fontSize: "0.8125rem", color: "#64748b", marginTop: "16px", textAlign: "center", lineHeight: "1.5" }}>
-              🔒 <strong>Important:</strong> Your unique secure download link is generated via Cloudflare R2 and dispatched immediately via Resend to your provided email address after payment. The download link remains active for 2 hours.
+              🔒 <strong>Important:</strong> Your unique secure download link is generated via Cloudflare R2 immediately after Stripe payment verification. The download link remains active for 2 hours.
             </p>
           </div>
         </div>
