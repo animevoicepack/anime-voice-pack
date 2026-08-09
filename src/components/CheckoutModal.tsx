@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { CONFIG } from "@/lib/config";
@@ -11,13 +11,20 @@ interface CheckoutModalProps {
   email?: string;
 }
 
-const publishableKey = CONFIG.STRIPE.PUBLISHABLE_KEY;
+const publishableKey =
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ||
+  CONFIG.STRIPE.PUBLISHABLE_KEY ||
+  "pk_test_51TzJCVK9A1fbNp7ufRqCkc6UKC2dlxVu4xOVixmGbuAwaq1z8IOAcafgTZIoXai6BbfkRe0qfrJ86AD9QNmtVITb00wM0VfWb4";
+
 const stripePromise = loadStripe(publishableKey);
 
 export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalProps) {
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      setCheckoutError(null);
     } else {
       document.body.style.overflow = "unset";
     }
@@ -27,17 +34,24 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
   }, [isOpen]);
 
   const fetchClientSecret = useCallback(async () => {
-    const res = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      setCheckoutError(null);
+      const res = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-    const data = await res.json();
-    if (!res.ok || !data.clientSecret) {
-      throw new Error(data.error || "Could not create checkout session.");
+      const data = await res.json();
+      if (!res.ok || !data.clientSecret) {
+        throw new Error(data.error || "Could not create checkout session.");
+      }
+      return data.clientSecret;
+    } catch (err: any) {
+      console.error("[CheckoutModal Error]:", err);
+      setCheckoutError(err.message || "Failed to load checkout session.");
+      throw err;
     }
-    return data.clientSecret;
   }, [email]);
 
   if (!isOpen) return null;
@@ -122,15 +136,51 @@ export default function CheckoutModal({ isOpen, onClose, email }: CheckoutModalP
           </button>
         </div>
 
-        {/* Stripe Embedded Checkout Container */}
-        <div id="checkout" style={{ width: "100%", minHeight: "500px" }}>
-          <EmbeddedCheckoutProvider
-            stripe={stripePromise}
-            options={{ fetchClientSecret }}
+        {/* Error Alert Box if session creation fails */}
+        {checkoutError ? (
+          <div
+            style={{
+              background: "#fef2f2",
+              border: "1px solid #fca5a5",
+              borderRadius: "16px",
+              padding: "32px 24px",
+              textAlign: "center",
+              margin: "32px 0",
+            }}
           >
-            <EmbeddedCheckout />
-          </EmbeddedCheckoutProvider>
-        </div>
+            <div style={{ fontSize: "36px", marginBottom: "12px" }}>⚠️</div>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#991b1b", margin: "0 0 8px 0" }}>
+              Unable to Load Stripe Checkout
+            </h3>
+            <p style={{ fontSize: "0.95rem", color: "#7f1d1d", margin: "0 0 20px 0" }}>
+              {checkoutError}
+            </p>
+            <button
+              onClick={onClose}
+              style={{
+                padding: "12px 24px",
+                background: "#0f172a",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "10px",
+                fontWeight: 700,
+                cursor: "pointer",
+              }}
+            >
+              Close & Try Again
+            </button>
+          </div>
+        ) : (
+          /* Stripe Embedded Checkout Container */
+          <div id="checkout" style={{ width: "100%", minHeight: "500px" }}>
+            <EmbeddedCheckoutProvider
+              stripe={stripePromise}
+              options={{ fetchClientSecret }}
+            >
+              <EmbeddedCheckout />
+            </EmbeddedCheckoutProvider>
+          </div>
+        )}
 
         {/* Bottom Security / Delivery Badge */}
         <div
