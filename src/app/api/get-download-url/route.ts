@@ -37,12 +37,13 @@ async function handleGetDownloadUrl(sessionId: string | null) {
     );
   }
 
-  if (session.payment_status !== "paid") {
+  if (session.payment_status !== "paid" || session.status !== "complete") {
     return NextResponse.json(
       {
         success: false,
-        error: "Payment is required. This Checkout session status is not paid.",
+        error: "Access denied. A completed paid order is required to generate a download link.",
         paymentStatus: session.payment_status,
+        sessionStatus: session.status,
       },
       { status: 403 }
     );

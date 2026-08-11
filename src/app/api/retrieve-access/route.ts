@@ -43,7 +43,7 @@ export async function POST(req: Request) {
       paidSession =
         listResult.data.find((s) => {
           const sEmail = (s.customer_details?.email || s.customer_email || "").toLowerCase();
-          return sEmail === targetEmail && s.payment_status === "paid";
+          return sEmail === targetEmail && s.payment_status === "paid" && s.status === "complete";
         }) || null;
     } catch (listErr) {
       console.error("[Stripe List Checkout Sessions Error]:", listErr);
@@ -53,9 +53,9 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: "No completed order was found for this email address. Please check your spelling or contact support.",
+          error: "No completed purchase found for this email address. Please check your spelling or verify your order.",
         },
-        { status: 404 }
+        { status: 403 }
       );
     }
 
