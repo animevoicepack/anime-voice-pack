@@ -71,7 +71,7 @@ async function handleGetDownloadUrl(sessionId: string | null) {
   });
 
   const customerEmail = session.customer_details?.email || session.customer_email || "";
-  const amountTotal = session.amount_total ? (session.amount_total / 100).toFixed(2) : "50.00";
+  const amountTotal = session.amount_total ? (session.amount_total / 100 % 1 === 0 ? (session.amount_total / 100).toString() : (session.amount_total / 100).toFixed(2)) : "50";
   const currency = (session.currency || "usd").toUpperCase();
 
   return NextResponse.json({

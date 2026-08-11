@@ -40,7 +40,7 @@ export async function POST(req: Request) {
               name: 'ANIME VOICE PACK',
               description: '1,000+ isolated anime voice audio samples',
             },
-            unit_amount: 5000, // $50.00 USD (5000 cents)
+            unit_amount: 5000, // $50 USD (5000 cents)
           },
           quantity: 1,
         },

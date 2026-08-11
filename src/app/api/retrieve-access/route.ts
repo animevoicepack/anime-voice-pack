@@ -81,7 +81,7 @@ export async function POST(req: Request) {
     });
 
     const customerEmail = paidSession.customer_details?.email || paidSession.customer_email || targetEmail;
-    const amountTotal = paidSession.amount_total ? (paidSession.amount_total / 100).toFixed(2) : "50.00";
+    const amountTotal = paidSession.amount_total ? (paidSession.amount_total / 100 % 1 === 0 ? (paidSession.amount_total / 100).toString() : (paidSession.amount_total / 100).toFixed(2)) : "50";
     const currency = (paidSession.currency || "usd").toUpperCase();
 
     return NextResponse.json({

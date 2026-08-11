@@ -536,7 +536,7 @@ function SuccessContent() {
                     )}
                     <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255, 255, 255, 0.05)", paddingBottom: "10px" }}>
                       <span style={{ color: "#94a3b8" }}>Total Amount:</span>
-                      <strong style={{ color: "#4ade80" }}>${order?.amountTotal || "50.00"} {order?.currency || "USD"}</strong>
+                      <strong style={{ color: "#4ade80" }}>${order?.amountTotal || "50"} {order?.currency || "USD"}</strong>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255, 255, 255, 0.05)", paddingBottom: "10px" }}>
                       <span style={{ color: "#94a3b8" }}>Payment Status:</span>
