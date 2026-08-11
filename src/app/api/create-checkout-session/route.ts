@@ -29,7 +29,6 @@ export async function POST(req: Request) {
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
       mode: 'payment',
-      allow_promotion_codes: true,
       return_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       customer_email: email,
       payment_intent_data: email ? { receipt_email: email } : undefined,
