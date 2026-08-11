@@ -59,7 +59,24 @@ export async function POST(req: Request) {
       );
     }
 
-    // Generate signed Cloudflare R2 download URL expiring in 2 hours (7,200 seconds)
+    // Calculate elapsed time from Stripe purchase creation timestamp (paidSession.created in seconds)
+    const nowInSeconds = Math.floor(Date.now() / 1000);
+    const purchaseTimeInSeconds = paidSession.created || nowInSeconds;
+    const elapsedSeconds = nowInSeconds - purchaseTimeInSeconds;
+    const remainingSeconds = 7200 - elapsedSeconds;
+
+    if (remainingSeconds <= 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Your 2-hour download window for this order has expired.",
+          expired: true,
+        },
+        { status: 403 }
+      );
+    }
+
+    // Generate signed Cloudflare R2 download URL with TTL dynamic to remaining time (max 7,200 seconds)
     const s3Client = new S3Client({
       region: "auto",
       endpoint: CONFIG.R2.ENDPOINT,
@@ -77,7 +94,7 @@ export async function POST(req: Request) {
     });
 
     const downloadUrl = await getSignedUrl(s3Client, command, {
-      expiresIn: 7200,
+      expiresIn: Math.min(remainingSeconds, 7200),
     });
 
     const customerEmail = paidSession.customer_details?.email || paidSession.customer_email || targetEmail;
