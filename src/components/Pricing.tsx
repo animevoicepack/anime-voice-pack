@@ -156,7 +156,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                   htmlFor="pricing-email"
                   style={{ display: "block", fontSize: "0.875rem", fontWeight: 700, color: "#0f172a", marginBottom: "8px" }}
                 >
-                  Delivery Email Address:
+                  Email Address (for backup & support):
                 </label>
                 <input
                   id="pricing-email"
@@ -250,7 +250,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
 
             {/* Security Disclaimer */}
             <p style={{ fontSize: "0.8125rem", color: "#64748b", marginTop: "16px", textAlign: "center", lineHeight: "1.5" }}>
-              🔒 <strong>Important:</strong> Your unique secure download link is generated via Cloudflare R2 immediately after Stripe payment verification. The download link remains active for 2 hours.
+              🔒 <strong>Instant Access:</strong> You will be redirected to the download screen immediately after payment. Your email is only used as a backup in case you encounter any issues.
             </p>
           </div>
         </div>
