@@ -82,15 +82,20 @@ export default function Hero({ onBuyNow }: HeroProps) {
             }}
           />
 
-          {/* Primary Headline in subtle dark container: bg-black/40 backdrop-blur-sm p-3 rounded-xl */}
-          <div className="hero-title-box">
-            <h1 className="hero-title">
-              GET 1,000+ VOICE FILES OF EVERY ANIME CHARACTER&apos;S VOICE READY FOR AI VOICE CLONING
-            </h1>
+          {/* Restored Stylized Main Title */}
+          <h1 className="hero-title">
+            ANIME VOICE PACK <span className="highlight-yellow">BUNDLE</span>
+          </h1>
+
+          {/* Compact Glass Container & Targeted Color Accents */}
+          <div className="hero-value-box">
+            <p className="hero-value-text">
+              GET <span className="text-amber-400 font-extrabold">1,000+ VOICE FILES</span> OF EVERY ANIME CHARACTER&apos;S VOICE READY FOR <span className="text-cyan-400 font-extrabold">AI VOICE CLONING</span>
+            </p>
           </div>
           
-          {/* Secondary Line: Featured Glassmorphism Pill Badge */}
-          <div className="hero-feature-pill">
+          {/* Electric Violet Pill Badge with Live Ambient Animation */}
+          <div className="hero-electric-pill">
             <span className="pill-sparkle" aria-hidden="true">✨</span>
             <span className="pill-text">
               PERFECT FOR CONTENT CREATION AND VOICE MESSAGES USING ANIME CHARACTERS&apos; VOICES.
@@ -113,16 +118,12 @@ export default function Hero({ onBuyNow }: HeroProps) {
                 }
               }}
             >
-              BUY NOW - $25
+              BUY NOW
             </a>
             <a href="#showcase" className="btn-secondary hero-btn-series hero-btn-ghost">
               ANIME LIST
             </a>
           </div>
-
-          <p className="hero-meta">
-            🔒 Secure checkout via <span className="stripe-highlight">Stripe</span>. <span className="delivery-highlight">Delivery within minutes.</span>
-          </p>
         </div>
       </div>
     </header>

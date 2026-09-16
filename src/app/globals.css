@@ -605,137 +605,140 @@ section {
 /* Promotional Urgency Badge & Evergreen Countdown */
 .hero-promo-badge-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.85rem;
 }
 
 .hero-promo-badge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.85rem;
-  background: rgba(14, 14, 24, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 62, 62, 0.4);
-  box-shadow: 0 4px 24px -2px rgba(255, 62, 62, 0.22),
+  justify-content: flex-start;
+  gap: 0.45rem;
+  background: rgba(14, 14, 24, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 62, 62, 0.35);
+  box-shadow: 0 4px 15px -2px rgba(255, 62, 62, 0.2),
               0 0 0 1px rgba(255, 255, 255, 0.08) inset;
   border-radius: 9999px;
-  padding: 0.45rem 1.15rem;
+  padding: 0.25rem 0.65rem;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s ease;
   max-width: 100%;
 }
 
 .hero-promo-badge:hover {
   background: rgba(20, 20, 34, 0.95);
-  border-color: rgba(255, 62, 62, 0.7);
-  box-shadow: 0 6px 30px rgba(255, 62, 62, 0.35),
+  border-color: rgba(255, 62, 62, 0.6);
+  box-shadow: 0 4px 20px rgba(255, 62, 62, 0.3),
               0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .promo-badge-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.25rem;
   background: linear-gradient(135deg, #ff3e3e 0%, #ff7e40 100%);
   color: #ffffff;
   font-family: var(--font-heading);
-  font-size: 0.82rem;
+  font-size: 0.6875rem;
   font-weight: 800;
-  padding: 0.25rem 0.65rem;
+  padding: 0.15rem 0.45rem;
   border-radius: 9999px;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(255, 62, 62, 0.35);
+  box-shadow: 0 2px 6px rgba(255, 62, 62, 0.3);
 }
 
 .promo-badge-fire {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   line-height: 1;
 }
 
 .promo-badge-offer-text {
   line-height: 1;
+  font-size: 0.6875rem;
+  font-weight: 800;
 }
 
 .promo-badge-divider {
   width: 1px;
-  height: 16px;
-  background: rgba(255, 255, 255, 0.18);
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
   flex-shrink: 0;
 }
 
 .promo-badge-pricing {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.45rem;
+  gap: 0.35rem;
   font-family: var(--font-heading);
   white-space: nowrap;
 }
 
 .promo-price-old {
-  color: #94a3b8;
+  color: #a1a1aa; /* text-zinc-400 */
   text-decoration: line-through;
-  text-decoration-thickness: 1.5px;
-  font-weight: 600;
-  font-size: 0.92rem;
+  text-decoration-color: #ef4444; /* decoration-red-500 */
+  text-decoration-thickness: 2px; /* decoration-2 */
+  font-weight: 600; /* font-semibold */
+  font-size: 0.75rem;
 }
 
 .promo-price-current {
-  color: #ffe600;
+  color: #facc15; /* bright gold text */
   font-weight: 850;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
-  text-shadow: 0 0 12px rgba(255, 230, 0, 0.45);
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 8px rgba(250, 204, 21, 0.45);
 }
 
 .promo-badge-timer {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.25rem;
   font-family: var(--font-heading);
   color: #ffffff;
   white-space: nowrap;
 }
 
 .promo-timer-icon {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   line-height: 1;
 }
 
 .promo-timer-units {
   display: inline-flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.15rem;
   font-variant-numeric: tabular-nums;
 }
 
 .timer-unit {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.1rem;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
-  padding: 0.15rem 0.35rem;
+  gap: 0.05rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.1rem 0.25rem;
 }
 
 .timer-num {
   font-weight: 800;
-  font-size: 0.88rem;
+  font-size: 0.75rem;
   color: #00f0ff;
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
   line-height: 1;
 }
 
 .timer-lbl {
-  font-size: 0.65rem;
+  font-size: 0.55rem;
   font-weight: 700;
   color: #94a3b8;
   text-transform: uppercase;
@@ -744,70 +747,115 @@ section {
 
 .timer-sep {
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.4);
   line-height: 1;
 }
 
-.hero-title-box {
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 0.85rem 1.4rem;
-  border-radius: 0.75rem; /* rounded-xl */
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin: 0 auto 1.25rem auto;
-  display: inline-block;
-  max-width: 100%;
-}
-
+/* Restored Stylized Main Title */
 .hero-title {
-  font-size: 2.2rem;
-  line-height: 1.25;
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-size: 3.2rem;
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+  font-family: 'Bangers', cursive;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-block;
   color: #ffffff;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 2px 0px #000000, 4px 4px 0px var(--accent-red);
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.hero-feature-pill {
+.hero-title .highlight-yellow {
+  color: #facc15;
+  text-shadow: 2px 2px 0px #000000, 4px 4px 0px var(--accent-orange);
+}
+
+/* Compact Glass Container with Value Proposition */
+.hero-value-box {
+  max-width: 28rem; /* sm:max-w-md */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem;
+  background: rgba(0, 0, 0, 0.55); /* bg-black/55 */
+  backdrop-filter: blur(12px); /* backdrop-blur-md */
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 1rem; /* rounded-2xl */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* border border-white/10 */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* shadow-2xl */
+}
+
+.hero-value-text {
+  font-family: var(--font-heading);
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 700; /* font-bold */
+  line-height: 1.625; /* leading-relaxed */
+  text-align: center;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hero-value-text .text-amber-400 {
+  color: #fbbf24;
+  font-weight: 850;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+}
+
+.hero-value-text .text-cyan-400 {
+  color: #22d3ee;
+  font-weight: 850;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+}
+
+/* Electric Violet Pill Badge with Live Breathing Aura Animation */
+@keyframes electricPillPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: scale(1);
+    border-color: rgba(192, 132, 252, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.7), 0 0 8px rgba(216, 180, 254, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transform: scale(1.02);
+    border-color: rgba(216, 180, 254, 0.75);
+  }
+}
+
+.hero-electric-pill {
+  background: rgba(59, 7, 100, 0.6); /* bg-purple-950/60 */
+  border: 1px solid rgba(192, 132, 252, 0.5); /* border border-purple-400/50 */
+  border-radius: 9999px; /* rounded-full */
+  padding: 0.25rem 0.75rem; /* px-3 py-1 */
+  margin-top: 0.625rem; /* mt-2.5 */
+  margin-bottom: 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  background: linear-gradient(90deg, rgba(255, 126, 64, 0.12) 0%, rgba(168, 85, 247, 0.15) 50%, rgba(255, 126, 64, 0.12) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2), 
-              0 0 15px rgba(255, 126, 64, 0.15),
-              inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
-  padding: 0.65rem 1.4rem;
-  margin-bottom: 2rem;
+  gap: 0.375rem; /* gap-1.5 */
+  backdrop-filter: blur(12px); /* backdrop-blur-md */
+  -webkit-backdrop-filter: blur(12px);
+  animation: electricPillPulse 2.8s ease-in-out infinite;
   max-width: 100%;
 }
 
-.hero-feature-pill .pill-sparkle {
-  font-size: 1.05rem;
+.hero-electric-pill .pill-sparkle {
+  font-size: 0.85rem;
   line-height: 1;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 6px rgba(255, 230, 0, 0.6));
+  filter: drop-shadow(0 0 6px rgba(255, 230, 0, 0.7));
 }
 
-.hero-feature-pill .pill-text {
+.hero-electric-pill .pill-text {
+  color: #f3e8ff; /* text-purple-100 */
   font-family: var(--font-heading);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #f8fafc;
+  font-size: 0.75rem; /* sm:text-xs */
+  font-weight: 600; /* font-semibold */
+  letter-spacing: 0.05em; /* tracking-wide */
+  text-align: center;
   line-height: 1.4;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .highlight {
@@ -958,7 +1006,30 @@ section {
   margin: 1.5rem auto 0 auto;
 }
 
+/* Live Animations for BUY NOW CTA */
+@keyframes buyPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.45), 0 4px 15px rgba(0, 0, 0, 0.35);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(249, 115, 22, 0.75), 0 0 10px rgba(255, 126, 64, 0.6), 0 6px 20px rgba(0, 0, 0, 0.45);
+  }
+}
+
+@keyframes buySheen {
+  0% {
+    left: -120%;
+  }
+  30%, 100% {
+    left: 140%;
+  }
+}
+
 .hero-btn-buy {
+  position: relative;
+  overflow: hidden;
   flex: 1.3;
   padding: 1.1rem 2rem;
   font-size: 1.35rem;
@@ -967,11 +1038,40 @@ section {
   text-transform: uppercase;
   border-radius: 8px;
   text-align: center;
-  background: linear-gradient(135deg, var(--accent-red), var(--accent-orange));
-  box-shadow: 0 6px 20px rgba(255, 62, 62, 0.4);
+  background: linear-gradient(135deg, #ff5722, #f97316);
+  color: #ffffff;
+  border: none;
+  animation: buyPulse 2.4s ease-in-out infinite;
+  transition: all 0.2s ease;
+  z-index: 1;
 }
 
-.hero-btn-series {
+.hero-btn-buy::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: buySheen 2.6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-btn-buy:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 30px rgba(249, 115, 22, 0.9), 0 6px 25px rgba(0, 0, 0, 0.5);
+}
+
+.hero-btn-series,
+.hero-btn-ghost {
   flex: 0.8;
   padding: 0.85rem 1.5rem;
   font-size: 1.05rem;
@@ -980,31 +1080,22 @@ section {
   text-transform: uppercase;
   border-radius: 8px;
   text-align: center;
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.45);
-  color: #ffffff;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  transition: var(--transition-smooth);
-}
-
-.hero-btn-ghost {
   background: transparent !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
-  color: #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: var(--transition-smooth);
 }
 
 .hero-btn-series:hover,
 .hero-btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.14) !important;
-  border-color: rgba(255, 255, 255, 0.85) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
   color: #ffffff !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
 }
 
 .hero-meta {
@@ -1031,7 +1122,7 @@ section {
 @media (max-width: 768px) {
   .hero-section {
     min-height: 100vh;
-    padding: 80px 0 40px 0;
+    padding: 95px 0 30px 0; /* pt-20 to pt-24 ensuring no clipping or collision with fixed nav */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1042,62 +1133,27 @@ section {
     object-position: center;
   }
   
-  .hero-title-box {
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: 0.75rem;
-  }
-
-  .hero-title {
-    font-size: 1.45rem;
-    line-height: 1.3;
-    letter-spacing: 0.01em;
-  }
-
-  .hero-feature-pill {
-    padding: 0.6rem 1rem;
-    border-radius: 16px;
-    margin-bottom: 1.5rem;
-    gap: 0.45rem;
-  }
-
-  .hero-feature-pill .pill-sparkle {
-    font-size: 0.9rem;
-  }
-
-  .hero-feature-pill .pill-text {
-    font-size: 0.76rem;
-    letter-spacing: 0.04em;
-    line-height: 1.35;
-  }
-  
   .hero-content {
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     width: 95%;
     margin: 0 auto;
-    transform: translateY(-80px);
+    transform: none; /* remove -80px translation to prevent navbar overlap */
     background: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     border: none;
     box-shadow: none;
   }
-  
-  .hero-badge {
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-  }
 
   .hero-promo-badge-wrapper {
-    margin-bottom: 1.25rem;
+    justify-content: flex-start;
+    margin-bottom: 0.65rem;
   }
 
   .hero-promo-badge {
-    flex-wrap: wrap;
-    gap: 0.5rem 0.65rem;
-    padding: 0.5rem 0.85rem;
-    border-radius: 18px;
-    justify-content: center;
+    padding: 0.2rem 0.55rem;
+    gap: 0.35rem;
+    border-radius: 9999px;
   }
 
   .promo-badge-divider {
@@ -1105,66 +1161,91 @@ section {
   }
 
   .promo-badge-tag {
-    font-size: 0.76rem;
-    padding: 0.2rem 0.55rem;
+    font-size: 0.625rem;
+    padding: 0.1rem 0.4rem;
   }
 
   .promo-price-old {
-    font-size: 0.85rem;
+    font-size: 0.72rem;
   }
 
   .promo-price-current {
-    font-size: 0.95rem;
+    font-size: 0.78rem;
   }
 
   .timer-unit {
-    padding: 0.12rem 0.25rem;
+    padding: 0.08rem 0.2rem;
   }
 
   .timer-num {
-    font-size: 0.82rem;
+    font-size: 0.72rem;
   }
 
   .timer-lbl {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
   }
 
-  .hero-subtitle {
-    font-size: 1.25rem;
-    line-height: 1.4;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    margin-bottom: 2rem;
-    font-family: 'Bangers', cursive;
-    letter-spacing: 0.04em;
+  .hero-title {
+    font-size: 2.1rem;
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+    text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-red);
+  }
+
+  .hero-title .highlight-yellow {
+    text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-orange);
+  }
+
+  .hero-value-box {
+    max-width: 20rem; /* max-w-xs */
+    padding: 0.65rem 0.85rem; /* p-2.5 sm:p-3.5 */
+    border-radius: 1rem;
+  }
+
+  .hero-value-text {
+    font-size: 0.75rem; /* text-xs */
+    line-height: 1.55;
+  }
+
+  .hero-electric-pill {
+    padding: 0.2rem 0.65rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+    max-width: 95%;
+  }
+
+  .hero-electric-pill .pill-sparkle {
+    font-size: 0.8rem;
+  }
+
+  .hero-electric-pill .pill-text {
+    font-size: 0.625rem; /* text-[10px] */
+    letter-spacing: 0.03em;
+    line-height: 1.35;
   }
   
   .hero-actions {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
     width: 100%;
-    margin-top: 0.25rem;
+    max-width: 20rem;
+    margin: 0 auto;
   }
   
   .hero-btn-buy {
-    font-size: 1.4rem;
-    padding: 1.1rem 2rem;
+    font-size: 1.3rem;
+    padding: 0.95rem 1.75rem;
     font-family: 'Bangers', cursive;
   }
   
   .hero-btn-series,
   .hero-btn-ghost {
-    font-size: 1.1rem;
-    padding: 0.9rem 1.5rem;
+    font-size: 1.05rem;
+    padding: 0.85rem 1.4rem;
     font-family: 'Bangers', cursive;
     background: transparent !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
-    color: #ffffff !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
   }
   
   .hero-btn-buy,
@@ -1173,63 +1254,66 @@ section {
     width: 100%;
     flex: none;
   }
-
-  .hero-meta {
-    font-size: 0.85rem;
-    color: #e2e8f0;
-    margin-top: 1.25rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.9);
-  }
 }
 
 @media (max-width: 480px) {
+  .hero-section {
+    padding: 90px 0 25px 0;
+  }
+
   .hero-promo-badge {
-    width: 100%;
-    padding: 0.5rem 0.5rem;
-    gap: 0.35rem 0.5rem;
+    padding: 0.18rem 0.45rem;
+    gap: 0.25rem;
   }
 
   .promo-badge-tag {
-    font-size: 0.72rem;
+    font-size: 0.58rem;
+    padding: 0.08rem 0.35rem;
+  }
+
+  .promo-price-old {
+    font-size: 0.68rem;
   }
 
   .promo-price-current {
-    font-size: 0.9rem;
-  }
-
-  .timer-unit {
-    padding: 0.1rem 0.2rem;
+    font-size: 0.72rem;
   }
 
   .timer-num {
-    font-size: 0.78rem;
+    font-size: 0.68rem;
   }
 
   .timer-lbl {
-    font-size: 0.55rem;
-  .timer-sep {
-    font-size: 0.75rem;
+    font-size: 0.48rem;
   }
 
-  .hero-title-box {
-    padding: 0.65rem 0.85rem;
-    margin-bottom: 0.85rem;
+  .timer-sep {
+    font-size: 0.65rem;
   }
 
   .hero-title {
-    font-size: 1.25rem;
-    line-height: 1.3;
+    font-size: 1.75rem;
+    line-height: 1.1;
   }
 
-  .hero-feature-pill {
-    padding: 0.5rem 0.75rem;
-    border-radius: 14px;
-    margin-bottom: 1.25rem;
+  .hero-value-box {
+    max-width: 18.5rem;
+    padding: 0.55rem 0.75rem;
   }
 
-  .hero-feature-pill .pill-text {
+  .hero-value-text {
     font-size: 0.7rem;
-    letter-spacing: 0.03em;
+    line-height: 1.5;
+  }
+
+  .hero-electric-pill {
+    padding: 0.18rem 0.55rem;
+    margin-top: 0.45rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .hero-electric-pill .pill-text {
+    font-size: 0.58rem;
   }
 }
 
