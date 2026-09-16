@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 
-import PromoCountdownBadge from "./PromoCountdownBadge";
-
 interface HeroProps {
   onBuyNow?: () => void;
 }
@@ -68,26 +66,12 @@ export default function Hero({ onBuyNow }: HeroProps) {
       {/* Hero Content Grid */}
       <div className="hero-container container">
         <div className="hero-content">
-          {/* Promotional Urgency Badge with Strikethrough Pricing & Evergreen Countdown */}
-          <PromoCountdownBadge
-            onClick={() => {
-              if (onBuyNow) {
-                onBuyNow();
-              } else {
-                const pricingSection = document.getElementById("pricing");
-                if (pricingSection) {
-                  pricingSection.scrollIntoView({ behavior: "smooth" });
-                }
-              }
-            }}
-          />
-
           {/* Restored Stylized Main Title */}
           <h1 className="hero-title">
             ANIME VOICE PACK <span className="highlight-yellow">BUNDLE</span>
           </h1>
 
-          {/* Compact Glass Container & Targeted Color Accents */}
+          {/* Enhanced Glass Container & High-Tech Value Proposition */}
           <div className="hero-value-box">
             <p className="hero-value-text">
               GET <span className="text-amber-400 font-extrabold">1,000+ VOICE FILES</span> OF EVERY ANIME CHARACTER&apos;S VOICE READY FOR <span className="text-cyan-400 font-extrabold">AI VOICE CLONING</span>
