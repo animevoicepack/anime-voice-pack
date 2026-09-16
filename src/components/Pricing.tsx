@@ -161,7 +161,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                 <input
                   id="pricing-email"
                   type="email"
-                  placeholder="Enter your email to receive your secure download link"
+                  placeholder="Enter your email in case the download link doesn't show up"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
