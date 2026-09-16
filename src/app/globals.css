@@ -749,7 +749,7 @@ section {
   width: 95%;
   padding: 0.5rem 1rem;
   text-align: center;
-  transform: translateY(-170px); /* Lifted text up on desktop */
+  transform: translateY(-25px); /* Dragged whole text and text frames down on computer */
   /* Transparent container on desktop, no borders/bg */
   background: transparent;
   border: none;
@@ -1429,7 +1429,9 @@ section {
   .hero-title {
     font-size: 2.5rem;
     line-height: 1.1;
-    margin-bottom: 0.65rem;
+    margin-top: -0.75rem;
+    transform: translateY(-10px);
+    margin-bottom: 0.85rem;
     text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-red);
   }
 
@@ -1521,6 +1523,9 @@ section {
   .hero-title {
     font-size: 2.15rem;
     line-height: 1.1;
+    margin-top: -0.85rem;
+    transform: translateY(-12px);
+    margin-bottom: 0.8rem;
   }
 
   .hero-value-box {
