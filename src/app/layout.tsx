@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CopyProtection from "@/components/CopyProtection";
 
 export const metadata: Metadata = {
   title: "Anime Voice Pack Bundle - 1000+ Premium Anime Audio Samples",
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <CopyProtection />
         {children}
       </body>
     </html>
