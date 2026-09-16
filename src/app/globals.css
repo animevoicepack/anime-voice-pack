@@ -749,7 +749,7 @@ section {
   width: 95%;
   padding: 0.5rem 1rem;
   text-align: center;
-  transform: translateY(-210px); /* Lifted 3x up on desktop */
+  transform: translateY(-170px); /* Lifted text up on desktop */
   /* Transparent container on desktop, no borders/bg */
   background: transparent;
   border: none;
@@ -924,41 +924,52 @@ section {
   line-height: 1;
 }
 
-/* Restored Stylized Main Title */
+/* Restored Stylized Main Title - High Contrast Comic Book Visibility */
 .hero-title {
-  font-size: 3.2rem;
+  font-size: 3.3rem;
   line-height: 1.05;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
   font-family: 'Bangers', cursive;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   display: inline-block;
   color: #ffffff;
-  text-shadow: 2px 2px 0px #000000, 4px 4px 0px var(--accent-red);
+  -webkit-text-stroke: 1.5px #000000;
+  text-shadow: 
+    3px 3px 0px #000000,
+    -2px -2px 0px #000000,
+    2px -2px 0px #000000,
+    -2px 2px 0px #000000,
+    0px 4px 15px rgba(0, 0, 0, 0.95),
+    5px 5px 0px var(--accent-red);
   margin-left: auto;
   margin-right: auto;
 }
 
 .hero-title .highlight-yellow {
-  color: #facc15;
-  text-shadow: 2px 2px 0px #000000, 4px 4px 0px var(--accent-orange);
+  color: #ffe600;
+  -webkit-text-stroke: 1.5px #000000;
+  text-shadow: 
+    3px 3px 0px #000000,
+    -2px -2px 0px #000000,
+    2px -2px 0px #000000,
+    -2px 2px 0px #000000,
+    0px 4px 15px rgba(0, 0, 0, 0.95),
+    5px 5px 0px var(--accent-orange);
 }
 
-/* Enhanced Glass Container with Value Proposition & Dynamic Shimmer */
+/* Enhanced Glass Container with Value Proposition - Tightened Shadow to Avoid Bleed */
 .hero-value-box {
-  max-width: 30rem;
-/* Enhanced Glass Container with Value Proposition & Dynamic Shimmer */
-.hero-value-box {
-  max-width: 33rem;
+  max-width: 31rem;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem 1.45rem;
-  background: rgba(10, 10, 20, 0.94); /* high-contrast dark solid backing */
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  padding: 0.85rem 1.4rem;
+  background: linear-gradient(135deg, rgba(16, 16, 28, 0.82) 0%, rgba(0, 0, 0, 0.88) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 1.25rem;
-  border: 1.5px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45), 0 0 16px rgba(245, 158, 11, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
   animation: valueBoxAura 4.5s ease-in-out infinite;
@@ -991,135 +1002,137 @@ section {
 
 @keyframes valueBoxAura {
   0%, 100% {
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 20px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45), 0 0 14px rgba(245, 158, 11, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.16);
   }
   50% {
-    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.9), 0 0 28px rgba(34, 211, 238, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    border-color: rgba(34, 211, 238, 0.45);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 22px rgba(34, 211, 238, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    border-color: rgba(34, 211, 238, 0.4);
   }
 }
 
 .hero-value-text {
   font-family: var(--font-heading);
-  font-size: 1.05rem; /* Larger, bold & super visible */
-  font-weight: 850;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.7;
   text-align: center;
-  color: #ffffff;
+  color: #f8fafc;
   margin: 0;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.02em;
   position: relative;
   z-index: 1;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .hero-value-text .text-amber-400 {
-  color: #fde047;
+  color: #fbbf24;
   font-weight: 900;
-  background: rgba(250, 204, 21, 0.2);
-  border: 1.5px solid rgba(250, 204, 21, 0.7);
-  padding: 0.1rem 0.45rem;
+  background: rgba(251, 191, 36, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  padding: 0.08rem 0.42rem;
   border-radius: 6px;
   display: inline-block;
-  text-shadow: 0 0 12px rgba(250, 204, 21, 0.85), 0 2px 4px #000;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
   animation: amberPulseGlow 3.2s ease-in-out infinite;
 }
 
 .hero-value-text .text-emerald-400 {
   color: #4ade80;
   font-weight: 900;
-  background: rgba(74, 222, 128, 0.2);
-  border: 1.5px solid rgba(74, 222, 128, 0.7);
-  padding: 0.1rem 0.45rem;
+  background: rgba(74, 222, 128, 0.14);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  padding: 0.08rem 0.42rem;
   border-radius: 6px;
   display: inline-block;
-  text-shadow: 0 0 12px rgba(74, 222, 128, 0.85), 0 2px 4px #000;
+  text-shadow: 0 0 12px rgba(74, 222, 128, 0.6);
   animation: emeraldPulseGlow 3.2s ease-in-out infinite 0.8s;
 }
 
 .hero-value-text .text-cyan-400 {
-  color: #38bdf8;
+  color: #22d3ee;
   font-weight: 900;
-  background: rgba(56, 189, 248, 0.2);
-  border: 1.5px solid rgba(56, 189, 248, 0.7);
-  padding: 0.1rem 0.45rem;
+  background: rgba(34, 211, 238, 0.14);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  padding: 0.08rem 0.42rem;
   border-radius: 6px;
   display: inline-block;
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.85), 0 2px 4px #000;
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
   animation: cyanPulseGlow 3.2s ease-in-out infinite 1.6s;
 }
 
 @keyframes amberPulseGlow {
   0%, 100% {
-    border-color: rgba(250, 204, 21, 0.5);
-    box-shadow: 0 0 8px rgba(250, 204, 21, 0.25);
+    border-color: rgba(251, 191, 36, 0.35);
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.2);
   }
   50% {
-    border-color: rgba(250, 204, 21, 0.9);
-    box-shadow: 0 0 16px rgba(250, 204, 21, 0.6);
+    border-color: rgba(251, 191, 36, 0.75);
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.5);
   }
 }
 
 @keyframes emeraldPulseGlow {
   0%, 100% {
-    border-color: rgba(74, 222, 128, 0.5);
-    box-shadow: 0 0 8px rgba(74, 222, 128, 0.25);
+    border-color: rgba(74, 222, 128, 0.35);
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.2);
   }
   50% {
-    border-color: rgba(74, 222, 128, 0.9);
-    box-shadow: 0 0 16px rgba(74, 222, 128, 0.6);
+    border-color: rgba(74, 222, 128, 0.75);
+    box-shadow: 0 0 16px rgba(74, 222, 128, 0.5);
   }
 }
 
 @keyframes cyanPulseGlow {
   0%, 100% {
-    border-color: rgba(56, 189, 248, 0.5);
-    box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+    border-color: rgba(34, 211, 238, 0.35);
+    box-shadow: 0 0 8px rgba(34, 211, 238, 0.2);
   }
   50% {
-    border-color: rgba(56, 189, 248, 0.9);
-    box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+    border-color: rgba(34, 211, 238, 0.75);
+    box-shadow: 0 0 16px rgba(34, 211, 238, 0.5);
   }
 }
 
-/* Electric Violet Pill Badge with Smooth Aura (High Visibility & Crisp Typography) */
+/* Electric Violet Pill Badge - Solid Contrast & Isolated Stacking */
 @keyframes electricPillPulse {
   0%, 100% {
-    box-shadow: 0 0 16px rgba(168, 85, 247, 0.45), 0 0 30px rgba(147, 51, 234, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 16px rgba(168, 85, 247, 0.5), 0 0 28px rgba(147, 51, 234, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
     border-color: rgba(216, 180, 254, 0.85);
   }
   50% {
-    box-shadow: 0 0 28px rgba(168, 85, 247, 0.9), 0 0 45px rgba(147, 51, 234, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 26px rgba(168, 85, 247, 0.85), 0 0 45px rgba(147, 51, 234, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
     border-color: #ffffff;
   }
 }
 
 .hero-electric-pill {
-  background: rgba(35, 4, 60, 0.95); /* deep, solid electric purple for maximum text contrast */
+  position: relative;
+  z-index: 10;
+  background: #270444 !important; /* solid deep purple, 100% opaque, immune to background shadows */
   border: 2px solid rgba(216, 180, 254, 0.95);
   border-radius: 9999px;
-  padding: 0.45rem 1.25rem;
-  margin-top: 0.85rem;
-  margin-bottom: 1.6rem;
+  padding: 0.42rem 1.15rem;
+  margin-top: 1.15rem; /* healthy separation from the value box above */
+  margin-bottom: 1.65rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   animation: electricPillPulse 2.8s ease-in-out infinite;
   max-width: 100%;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.85), 0 0 22px rgba(168, 85, 247, 0.6);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.6), 0 0 30px rgba(147, 51, 234, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .hero-electric-pill .pill-sparkle {
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1;
   flex-shrink: 0;
   display: inline-block;
   animation: sparkleTwinkle 2.5s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(255, 230, 0, 1));
+  filter: drop-shadow(0 0 8px rgba(255, 230, 0, 1));
 }
 
 @keyframes sparkleTwinkle {
@@ -1128,39 +1141,15 @@ section {
 }
 
 .hero-electric-pill .pill-text {
-  color: #ffffff; /* pure white, maximum visibility */
+  color: #ffffff !important; /* maximum brightness pure white */
   font-family: var(--font-heading);
-  font-size: 0.92rem;
-  font-weight: 900;
+  font-size: 0.85rem;
+  font-weight: 850;
   letter-spacing: 0.05em;
   text-align: center;
   line-height: 1.45;
-  text-shadow: 0 2px 5px #000000, 0 1px 2px #000000, 0 0 12px rgba(168, 85, 247, 0.95);
-}
-
-.hero-electric-pill .pill-sparkle {
-  font-size: 0.95rem;
-  line-height: 1;
-  flex-shrink: 0;
-  display: inline-block;
-  animation: sparkleTwinkle 2.5s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px rgba(255, 230, 0, 0.95));
-}
-
-@keyframes sparkleTwinkle {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.85; }
-  50% { transform: scale(1.18) rotate(12deg); opacity: 1; }
-}
-
-.hero-electric-pill .pill-text {
-  color: #ffffff; /* pure white, maximum visibility */
-  font-family: var(--font-heading);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-align: center;
-  line-height: 1.45;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 10px rgba(168, 85, 247, 0.8);
+  -webkit-text-stroke: 0.3px #000000;
+  text-shadow: 0 1px 3px #000000, 0 0 10px rgba(168, 85, 247, 0.9);
 }
 
 .highlight {
@@ -1428,9 +1417,9 @@ section {
 @media (max-width: 768px) {
   .hero-section {
     min-height: 100vh;
-    padding: 82px 0 20px 0;
+    padding: 78px 0 10px 0;
     display: flex;
-    align-items: flex-start; /* Aligned to top so text is lifted 3x up directly under navbar */
+    align-items: center;
     justify-content: center;
   }
   
@@ -1440,10 +1429,10 @@ section {
   }
   
   .hero-content {
-    padding: 0.35rem 0 0 0;
+    padding: 0;
     width: 95%;
     margin: 0 auto;
-    transform: none; /* Already positioned high via flex-start */
+    transform: translateY(-68px); /* Lifted text higher up */
     background: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -1452,60 +1441,66 @@ section {
   }
 
   .hero-title {
-    font-size: 2.15rem;
+    font-size: 2.25rem;
     line-height: 1.1;
     margin-bottom: 0.65rem;
-    text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-red);
+    -webkit-text-stroke: 1.2px #000000;
+    text-shadow: 
+      2px 2px 0px #000000,
+      -1.5px -1.5px 0px #000000,
+      1.5px -1.5px 0px #000000,
+      -1.5px 1.5px 0px #000000,
+      0px 3px 10px rgba(0, 0, 0, 0.95),
+      3.5px 3.5px 0px var(--accent-red);
   }
 
   .hero-title .highlight-yellow {
-    text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-orange);
+    -webkit-text-stroke: 1.2px #000000;
+    text-shadow: 
+      2px 2px 0px #000000,
+      -1.5px -1.5px 0px #000000,
+      1.5px -1.5px 0px #000000,
+      -1.5px 1.5px 0px #000000,
+      0px 3px 10px rgba(0, 0, 0, 0.95),
+      3.5px 3.5px 0px var(--accent-orange);
   }
 
   .hero-value-box {
-    max-width: 22.5rem;
-    padding: 0.85rem 1.05rem;
+    max-width: 21.5rem;
+    padding: 0.65rem 0.85rem;
     border-radius: 1rem;
-    background: rgba(10, 10, 20, 0.95);
-    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
   }
 
   .hero-value-text {
-    font-size: 0.86rem; /* Highly visible text */
-    font-weight: 850;
+    font-size: 0.78rem;
     line-height: 1.55;
-    color: #ffffff;
-    text-shadow: 0 2px 4px #000000;
-  }
-
-  .hero-value-text .text-amber-400,
-  .hero-value-text .text-emerald-400,
-  .hero-value-text .text-cyan-400 {
-    padding: 0.08rem 0.38rem;
-    font-size: 0.86rem;
   }
 
   .hero-electric-pill {
-    padding: 0.36rem 0.95rem;
-    margin-top: 0.6rem;
-    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 10;
+    padding: 0.32rem 0.9rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1.35rem;
     max-width: 98%;
-    background: rgba(35, 4, 60, 0.95);
-    border: 2px solid rgba(216, 180, 254, 0.95);
-    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.85), 0 0 18px rgba(168, 85, 247, 0.6);
+    background: #270444 !important;
+    border: 1.5px solid rgba(216, 180, 254, 0.95);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.55);
   }
 
   .hero-electric-pill .pill-sparkle {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .hero-electric-pill .pill-text {
-    color: #ffffff;
-    font-size: 0.78rem; /* Extra bold & highly visible */
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    line-height: 1.45;
-    text-shadow: 0 2px 4px #000000, 0 0 10px rgba(168, 85, 247, 0.9);
+    color: #ffffff !important;
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    -webkit-text-stroke: 0.2px #000000;
+    text-shadow: 0 1px 3px #000000, 0 0 8px rgba(168, 85, 247, 0.9);
   }
   
   .hero-actions {
@@ -1517,7 +1512,7 @@ section {
   }
   
   .hero-btn-buy {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     padding: 0.95rem 1.75rem;
     font-family: 'Bangers', cursive;
   }
@@ -1544,11 +1539,11 @@ section {
 
 @media (max-width: 480px) {
   .hero-section {
-    padding: 82px 0 15px 0;
+    padding: 80px 0 10px 0;
   }
 
   .hero-content {
-    padding-top: 0.2rem;
+    transform: translateY(-60px); /* Lifted higher on small screens */
   }
 
   .hero-title {
@@ -1557,24 +1552,24 @@ section {
   }
 
   .hero-value-box {
-    max-width: 20.5rem;
-    padding: 0.75rem 0.85rem;
+    max-width: 19.5rem;
+    padding: 0.55rem 0.75rem;
   }
 
   .hero-value-text {
-    font-size: 0.82rem;
+    font-size: 0.72rem;
     line-height: 1.5;
   }
 
   .hero-electric-pill {
-    padding: 0.32rem 0.85rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1.15rem;
+    padding: 0.28rem 0.8rem;
+    margin-top: 0.65rem;
+    margin-bottom: 1.25rem;
   }
 
   .hero-electric-pill .pill-text {
-    font-size: 0.74rem;
-    font-weight: 900;
+    font-size: 0.7rem;
+    font-weight: 850;
   }
 }
 
