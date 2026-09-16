@@ -130,7 +130,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                 { text: "Perfectly isolated & normalized MP3 files", isHighlight: false },
                 { text: "Sorted across 16+ Anime series", isHighlight: false },
                 { text: "100% ready for Discord soundboards, content edits, and parodies", isHighlight: false },
-                { text: "Perfect for custom WhatsApp voice messages & Discord sounds", isHighlight: false },
+                { text: "Perfect for custom WhatsApp, iMessage & Discord voice messages", isHighlight: false },
               ].map((feat, index) => (
                 <li
                   key={index}

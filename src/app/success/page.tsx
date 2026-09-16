@@ -570,7 +570,7 @@ function SuccessContent() {
                       🎬 What to do next?
                     </h3>
                     <p style={{ fontSize: "0.9375rem", color: "#94a3b8", lineHeight: "1.6", margin: "0 0 20px 0" }}>
-                      Learn how to extract your audio samples, import them into your favorite soundboard, and send custom voice clips on Discord & WhatsApp!
+                      Learn how to extract your audio samples, import them into your favorite soundboard, and send custom voice clips on Discord, WhatsApp & iMessage!
                     </p>
                   </div>
 

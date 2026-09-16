@@ -74,7 +74,7 @@ export default function Hero({ onBuyNow }: HeroProps) {
           {/* Enhanced Glass Container & High-Tech Value Proposition */}
           <div className="hero-value-box">
             <p className="hero-value-text">
-              GET <span className="text-amber-400 font-extrabold">1,000+ VOICE FILES</span> OF EVERY ANIME CHARACTER&apos;S VOICE, <span className="text-emerald-400 font-extrabold">FULLY CLEANED</span> AND READY FOR <span className="text-cyan-400 font-extrabold">AI VOICE CLONING</span>
+              GET <span className="text-red-500 font-extrabold">1,000+ VOICE FILES</span> OF EVERY ANIME CHARACTER&apos;S VOICE, <span className="text-emerald-400 font-extrabold">FULLY CLEANED</span> AND READY FOR <span className="text-cyan-400 font-extrabold">AI VOICE CLONING</span>
             </p>
           </div>
           

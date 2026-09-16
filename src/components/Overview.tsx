@@ -20,7 +20,7 @@ export default function Overview() {
               All audio files are provided strictly in industry-standard <strong>MP3 format</strong>, pre-sliced and organized into clearly labeled directories. This makes them <strong>100% ready for training advanced AI voice models, audio engineering, and professional content creation</strong>.
             </p>
             <p className="overview-text highlight-box">
-              💬 <strong>WhatsApp voice messages for friends:</strong> Use these flawless character voice samples after cloning to send custom, authentic-sounding audio messages and completely shock your friends in your WhatsApp chats!
+              💬 <strong>WhatsApp & iMessage voice messages for friends:</strong> Use these flawless character voice samples after cloning to send custom, authentic-sounding audio messages and completely shock your friends in your WhatsApp, Discord, and iMessage chats!
             </p>
           </div>
 

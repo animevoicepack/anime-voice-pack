@@ -61,10 +61,10 @@ export default function Features() {
             </div>
             <h3 className="feature-card-title">Multi-purpose Use</h3>
             <p className="feature-card-text">
-              The possibilities are endless. These isolated samples are perfect for building unique Discord soundboards, mixing dynamic YouTube videos, creating engaging content for TikTok/Reels, or generating custom parodies. Use your favorite anime character voices to send hilarious, authentic custom WhatsApp voice messages that will leave your friends stunned.
+              The possibilities are endless. These isolated samples are perfect for building unique Discord soundboards, mixing dynamic YouTube videos, creating engaging content for TikTok/Reels, or generating custom parodies. Use your favorite anime character voices to send hilarious, authentic custom WhatsApp & iMessage voice messages that will leave your friends stunned.
             </p>
             <div className="feature-tags">
-              <span className="feature-tag">WhatsApp Fun</span>
+              <span className="feature-tag">WhatsApp & iMessage</span>
               <span className="feature-tag">Discord Soundboard</span>
               <span className="feature-tag">Content Creation</span>
             </div>

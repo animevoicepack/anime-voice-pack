@@ -43,7 +43,7 @@ export default function Home() {
         {/* Hero Section with main headings and scroll action buttons */}
         <Hero />
         
-        {/* Product specs, isolated samples, parodies, WhatsApp usage */}
+        {/* Product specs, isolated samples, parodies, WhatsApp & iMessage usage */}
         <Overview />
         
         {/* Dual pillars: Clean audio specs and multi-purpose sounds */}

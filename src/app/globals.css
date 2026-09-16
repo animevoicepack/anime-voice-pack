@@ -1011,16 +1011,17 @@ section {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
+.hero-value-text .text-red-500,
 .hero-value-text .text-amber-400 {
-  color: #fbbf24;
+  color: #ff3b3b;
   font-weight: 900;
-  background: rgba(251, 191, 36, 0.14);
-  border: 1px solid rgba(251, 191, 36, 0.35);
-  padding: 0.08rem 0.42rem;
-  border-radius: 6px;
+  background: rgba(255, 59, 59, 0.14);
+  border: 1px solid rgba(255, 59, 59, 0.45);
+  padding: 0.04rem 0.28rem;
+  border-radius: 5px;
   display: inline-block;
-  text-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
-  animation: amberPulseGlow 3.2s ease-in-out infinite;
+  text-shadow: 0 0 12px rgba(255, 59, 59, 0.65);
+  animation: redPulseGlow 3.2s ease-in-out infinite;
 }
 
 .hero-value-text .text-emerald-400 {
@@ -1028,8 +1029,8 @@ section {
   font-weight: 900;
   background: rgba(74, 222, 128, 0.14);
   border: 1px solid rgba(74, 222, 128, 0.35);
-  padding: 0.08rem 0.42rem;
-  border-radius: 6px;
+  padding: 0.04rem 0.28rem;
+  border-radius: 5px;
   display: inline-block;
   text-shadow: 0 0 12px rgba(74, 222, 128, 0.6);
   animation: emeraldPulseGlow 3.2s ease-in-out infinite 0.8s;
@@ -1040,21 +1041,21 @@ section {
   font-weight: 900;
   background: rgba(34, 211, 238, 0.14);
   border: 1px solid rgba(34, 211, 238, 0.35);
-  padding: 0.08rem 0.42rem;
-  border-radius: 6px;
+  padding: 0.04rem 0.28rem;
+  border-radius: 5px;
   display: inline-block;
   text-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
   animation: cyanPulseGlow 3.2s ease-in-out infinite 1.6s;
 }
 
-@keyframes amberPulseGlow {
+@keyframes redPulseGlow {
   0%, 100% {
-    border-color: rgba(251, 191, 36, 0.35);
-    box-shadow: 0 0 8px rgba(251, 191, 36, 0.2);
+    border-color: rgba(255, 59, 59, 0.4);
+    box-shadow: 0 0 8px rgba(255, 59, 59, 0.25);
   }
   50% {
-    border-color: rgba(251, 191, 36, 0.75);
-    box-shadow: 0 0 16px rgba(251, 191, 36, 0.5);
+    border-color: rgba(255, 59, 59, 0.85);
+    box-shadow: 0 0 16px rgba(255, 59, 59, 0.6);
   }
 }
 
@@ -1429,9 +1430,9 @@ section {
   .hero-title {
     font-size: 2.5rem;
     line-height: 1.1;
-    margin-top: -0.75rem;
-    transform: translateY(-10px);
-    margin-bottom: 0.85rem;
+    margin-top: -1.25rem;
+    transform: translateY(-18px);
+    margin-bottom: 1.05rem;
     text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-red);
   }
 
@@ -1523,14 +1524,19 @@ section {
   .hero-title {
     font-size: 2.15rem;
     line-height: 1.1;
-    margin-top: -0.85rem;
-    transform: translateY(-12px);
-    margin-bottom: 0.8rem;
+    margin-top: -1.35rem;
+    transform: translateY(-22px);
+    margin-bottom: 1rem;
   }
 
   .hero-value-box {
     max-width: 19.5rem;
     padding: 0.55rem 0.75rem;
+  }
+
+  .hero-value-text span[class*="text-"] {
+    padding: 0.03rem 0.22rem;
+    border-radius: 4px;
   }
 
   .hero-value-text {
