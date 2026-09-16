@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 
+import PromoCountdownBadge from "./PromoCountdownBadge";
+
 interface HeroProps {
   onBuyNow?: () => void;
 }
@@ -66,6 +68,20 @@ export default function Hero({ onBuyNow }: HeroProps) {
       {/* Hero Content Grid */}
       <div className="hero-container container">
         <div className="hero-content">
+          {/* Promotional Urgency Badge with Strikethrough Pricing & Evergreen Countdown */}
+          <PromoCountdownBadge
+            onClick={() => {
+              if (onBuyNow) {
+                onBuyNow();
+              } else {
+                const pricingSection = document.getElementById("pricing");
+                if (pricingSection) {
+                  pricingSection.scrollIntoView({ behavior: "smooth" });
+                }
+              }
+            }}
+          />
+
           <h1 className="hero-title">
             ANIME VOICE PACK <span className="highlight">BUNDLE</span>
           </h1>
