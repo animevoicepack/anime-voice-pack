@@ -924,9 +924,9 @@ section {
   line-height: 1;
 }
 
-/* Restored Stylized Main Title - High Contrast Comic Book Visibility */
+/* Restored Stylized Main Title */
 .hero-title {
-  font-size: 3.3rem;
+  font-size: 3.85rem;
   line-height: 1.05;
   margin-bottom: 0.85rem;
   font-family: 'Bangers', cursive;
@@ -934,28 +934,14 @@ section {
   letter-spacing: 0.04em;
   display: inline-block;
   color: #ffffff;
-  -webkit-text-stroke: 1.5px #000000;
-  text-shadow: 
-    3px 3px 0px #000000,
-    -2px -2px 0px #000000,
-    2px -2px 0px #000000,
-    -2px 2px 0px #000000,
-    0px 4px 15px rgba(0, 0, 0, 0.95),
-    5px 5px 0px var(--accent-red);
+  text-shadow: 2px 2px 0px #000000, 4px 4px 0px var(--accent-red);
   margin-left: auto;
   margin-right: auto;
 }
 
 .hero-title .highlight-yellow {
-  color: #ffe600;
-  -webkit-text-stroke: 1.5px #000000;
-  text-shadow: 
-    3px 3px 0px #000000,
-    -2px -2px 0px #000000,
-    2px -2px 0px #000000,
-    -2px 2px 0px #000000,
-    0px 4px 15px rgba(0, 0, 0, 0.95),
-    5px 5px 0px var(--accent-orange);
+  color: #facc15;
+  text-shadow: 2px 2px 0px #000000, 4px 4px 0px var(--accent-orange);
 }
 
 /* Enhanced Glass Container with Value Proposition - Tightened Shadow to Avoid Bleed */
@@ -1441,28 +1427,14 @@ section {
   }
 
   .hero-title {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     line-height: 1.1;
     margin-bottom: 0.65rem;
-    -webkit-text-stroke: 1.2px #000000;
-    text-shadow: 
-      2px 2px 0px #000000,
-      -1.5px -1.5px 0px #000000,
-      1.5px -1.5px 0px #000000,
-      -1.5px 1.5px 0px #000000,
-      0px 3px 10px rgba(0, 0, 0, 0.95),
-      3.5px 3.5px 0px var(--accent-red);
+    text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-red);
   }
 
   .hero-title .highlight-yellow {
-    -webkit-text-stroke: 1.2px #000000;
-    text-shadow: 
-      2px 2px 0px #000000,
-      -1.5px -1.5px 0px #000000,
-      1.5px -1.5px 0px #000000,
-      -1.5px 1.5px 0px #000000,
-      0px 3px 10px rgba(0, 0, 0, 0.95),
-      3.5px 3.5px 0px var(--accent-orange);
+    text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-orange);
   }
 
   .hero-value-box {
@@ -1547,7 +1519,7 @@ section {
   }
 
   .hero-title {
-    font-size: 1.95rem;
+    font-size: 2.15rem;
     line-height: 1.1;
   }
 
