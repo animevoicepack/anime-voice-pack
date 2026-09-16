@@ -1036,9 +1036,9 @@ section {
 
 .hero-value-text {
   font-family: var(--font-heading);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  line-height: 1.7;
+  line-height: 2.15;
   text-align: center;
   color: #f8fafc;
   margin: 0;
@@ -1048,16 +1048,22 @@ section {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
+.hero-value-text span[class*="text-"] {
+  font-size: 0.8rem;
+  padding: 0.1rem 0.38rem;
+  margin: 0 0.25rem;
+  border-radius: 6px;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
 .hero-value-text .text-red-500,
 .hero-value-text .text-amber-400 {
   color: #ff3b3b;
   font-weight: 900;
   background: rgba(255, 59, 59, 0.14);
   border: 1px solid rgba(255, 59, 59, 0.45);
-  padding: 0.04rem 0.28rem;
-  border-radius: 5px;
-  display: inline-block;
-  text-shadow: 0 0 12px rgba(255, 59, 59, 0.65);
+  text-shadow: 0 0 10px rgba(255, 59, 59, 0.65);
   animation: redPulseGlow 3.2s ease-in-out infinite;
 }
 
@@ -1066,10 +1072,7 @@ section {
   font-weight: 900;
   background: rgba(74, 222, 128, 0.14);
   border: 1px solid rgba(74, 222, 128, 0.35);
-  padding: 0.04rem 0.28rem;
-  border-radius: 5px;
-  display: inline-block;
-  text-shadow: 0 0 12px rgba(74, 222, 128, 0.6);
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.6);
   animation: emeraldPulseGlow 3.2s ease-in-out infinite 0.8s;
 }
 
@@ -1078,10 +1081,7 @@ section {
   font-weight: 900;
   background: rgba(34, 211, 238, 0.14);
   border: 1px solid rgba(34, 211, 238, 0.35);
-  padding: 0.04rem 0.28rem;
-  border-radius: 5px;
-  display: inline-block;
-  text-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
   animation: cyanPulseGlow 3.2s ease-in-out infinite 1.6s;
 }
 
@@ -1498,15 +1498,22 @@ section {
   }
 
   .hero-value-box {
-    max-width: 21.5rem;
-    padding: 0.65rem 0.85rem;
+    max-width: 22rem;
+    padding: 0.75rem 0.9rem;
     border-radius: 1rem;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
   }
 
   .hero-value-text {
-    font-size: 0.78rem;
-    line-height: 1.55;
+    font-size: 0.76rem;
+    line-height: 2.15;
+  }
+
+  .hero-value-text span[class*="text-"] {
+    font-size: 0.72rem;
+    padding: 0.08rem 0.32rem;
+    margin: 0 0.2rem;
+    border-radius: 5px;
   }
 
   .hero-electric-pill {
@@ -1591,18 +1598,20 @@ section {
   }
 
   .hero-value-box {
-    max-width: 19.5rem;
-    padding: 0.55rem 0.75rem;
-  }
-
-  .hero-value-text span[class*="text-"] {
-    padding: 0.03rem 0.22rem;
-    border-radius: 4px;
+    max-width: 20rem;
+    padding: 0.65rem 0.8rem;
   }
 
   .hero-value-text {
     font-size: 0.72rem;
-    line-height: 1.5;
+    line-height: 2.1;
+  }
+
+  .hero-value-text span[class*="text-"] {
+    font-size: 0.68rem;
+    padding: 0.06rem 0.28rem;
+    margin: 0 0.18rem;
+    border-radius: 5px;
   }
 
   .hero-electric-pill {
