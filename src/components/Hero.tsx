@@ -82,13 +82,20 @@ export default function Hero({ onBuyNow }: HeroProps) {
             }}
           />
 
-          <h1 className="hero-title">
-            ANIME VOICE PACK <span className="highlight">BUNDLE</span>
-          </h1>
+          {/* Primary Headline in subtle dark container: bg-black/40 backdrop-blur-sm p-3 rounded-xl */}
+          <div className="hero-title-box">
+            <h1 className="hero-title">
+              GET 1,000+ VOICE FILES OF EVERY ANIME CHARACTER&apos;S VOICE READY FOR AI VOICE CLONING
+            </h1>
+          </div>
           
-          <p className="hero-subtitle">
-            Get <span className="highlight-cyan">1000+</span> ultra-clear voice files/samples from <span className="highlight-orange">16+ anime series</span>, optimized for <span className="highlight-yellow">Ai voice clone</span> & <span className="highlight-green">WhatsApp Voice messages</span>.
-          </p>
+          {/* Secondary Line: Featured Glassmorphism Pill Badge */}
+          <div className="hero-feature-pill">
+            <span className="pill-sparkle" aria-hidden="true">✨</span>
+            <span className="pill-text">
+              PERFECT FOR CONTENT CREATION AND VOICE MESSAGES USING ANIME CHARACTERS&apos; VOICES.
+            </span>
+          </div>
 
           <div className="hero-actions">
             <a
@@ -106,10 +113,10 @@ export default function Hero({ onBuyNow }: HeroProps) {
                 }
               }}
             >
-              Buy Now - $25
+              BUY NOW - $25
             </a>
-            <a href="#showcase" className="btn-secondary hero-btn-series">
-              Anime List
+            <a href="#showcase" className="btn-secondary hero-btn-series hero-btn-ghost">
+              ANIME LIST
             </a>
           </div>
 
