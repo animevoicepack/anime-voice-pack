@@ -958,7 +958,7 @@ section {
 
 /* Restored Stylized Main Title */
 .hero-title {
-  font-size: 3.85rem;
+  font-size: 4.35rem;
   line-height: 1.05;
   margin-bottom: 0.85rem;
   font-family: 'Bangers', cursive;
@@ -1465,7 +1465,7 @@ section {
   }
 
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 2.85rem;
     line-height: 1.05;
     margin-top: -1.5rem;
     transform: translateY(-24px);
@@ -1579,7 +1579,7 @@ section {
   }
 
   .hero-title {
-    font-size: 2.15rem;
+    font-size: 2.45rem;
     line-height: 1.05;
     margin-top: -1.65rem;
     transform: translateY(-28px);
