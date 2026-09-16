@@ -55,7 +55,7 @@ export default function Home() {
         {/* Explainer video tutorials */}
         <Tutorial />
         
-        {/* 50% pricing promotion card with second validated email block */}
+        {/* 75% pricing promotion card with second validated email block */}
         <Pricing
           email={email}
           setEmail={setEmail}

@@ -106,7 +106,7 @@ export default function Hero({ onBuyNow }: HeroProps) {
                 }
               }}
             >
-              Buy Now
+              Buy Now - $25
             </a>
             <a href="#showcase" className="btn-secondary hero-btn-series">
               Anime List

@@ -33,7 +33,7 @@ export default function Navbar() {
           <a href="#overview" className="nav-link">Overview</a>
           <a href="#showcase" className="nav-link">Anime</a>
           <a href="#tutorial" className="nav-link">Tutorial</a>
-          <a href="#pricing" onClick={handleScrollToPricing} className="nav-link btn-nav">Buy Now</a>
+          <a href="#pricing" onClick={handleScrollToPricing} className="nav-link btn-nav">Buy Now ($25)</a>
         </div>
       </div>
     </nav>

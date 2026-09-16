@@ -35,7 +35,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
             Get Instant Access Now
           </h2>
           <p className="section-subtitle" style={{ fontSize: "1.125rem", color: "#94a3b8", maxWidth: "600px", margin: "0 auto" }}>
-            Get your premium voice pack bundle today at a limited-time 50% discount.
+            Get your premium voice pack bundle today at a limited-time 75% discount.
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                 letterSpacing: "0.05em",
               }}
             >
-              50% OFF
+              75% OFF
             </div>
             
             <div style={{ marginBottom: "28px" }}>
@@ -115,7 +115,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                 $100
               </span>
               <span style={{ fontSize: "2.75rem", fontWeight: 900, color: "#0f172a", lineHeight: 1 }}>
-                $50
+                $25
               </span>
               <span style={{ fontSize: "0.875rem", color: "#475569", fontWeight: 600 }}>
                 USD &bull; One-time payment
@@ -214,7 +214,7 @@ export default function Pricing({ email, setEmail, onCheckout, isLoading }: Pric
                   opacity: isLoading ? 0.7 : 1,
                 }}
               >
-                {isLoading ? "Redirecting to checkout..." : "Proceed to Secure Stripe Checkout → ($50 USD)"}
+                {isLoading ? "Redirecting to checkout..." : "Get Instant Access Now → ($25 USD)"}
               </button>
             </form>
 

@@ -91,12 +91,12 @@ export default function PromoCountdownBadge({ onClick }: PromoCountdownBadgeProp
         href="#pricing"
         onClick={handleClick}
         className="hero-promo-badge"
-        aria-label="Launch Offer: 50% OFF. Original price $100, current price $50 USD. Limited 48-hour countdown."
+        aria-label="Launch Offer: 75% OFF. Original price $100, current price $25 USD. Limited 48-hour countdown."
       >
         {/* Launch Offer Badge */}
         <div className="promo-badge-tag">
           <span className="promo-badge-fire" aria-hidden="true">🔥</span>
-          <span className="promo-badge-offer-text">Launch Offer - 50% OFF</span>
+          <span className="promo-badge-offer-text">Launch Offer - 75% OFF</span>
         </div>
 
         <span className="promo-badge-divider" aria-hidden="true" />
@@ -104,7 +104,7 @@ export default function PromoCountdownBadge({ onClick }: PromoCountdownBadgeProp
         {/* Anchor Pricing */}
         <div className="promo-badge-pricing">
           <span className="promo-price-old">~~$100~~</span>
-          <span className="promo-price-current">$50 USD</span>
+          <span className="promo-price-current">$25 USD</span>
         </div>
 
         <span className="promo-badge-divider" aria-hidden="true" />
