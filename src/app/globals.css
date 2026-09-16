@@ -405,9 +405,13 @@ section {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+.navbar-main-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .navbar-left {
@@ -423,11 +427,6 @@ section {
   text-decoration: none;
 }
 
-.logo-text-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .logo-text {
   font-family: var(--font-heading);
   font-weight: 700;
@@ -437,17 +436,6 @@ section {
   background: linear-gradient(135deg, #ffffff, var(--accent-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.company-tag {
-  font-size: 0.62rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  opacity: 0.85;
-  line-height: 1;
-  margin-top: 2px;
 }
 
 /* Top-Left Merged 75% Offer Badge in Navbar */
@@ -569,6 +557,7 @@ section {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   box-shadow: 0 4px 10px rgba(255, 62, 62, 0.25);
+  text-decoration: none;
 }
 
 .btn-nav:hover {
@@ -576,17 +565,41 @@ section {
   box-shadow: 0 6px 15px rgba(255, 62, 62, 0.4);
 }
 
+.navbar-mobile-row {
+  display: none;
+}
+
+.mobile-nav-links {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .navbar {
+    height: auto;
+    min-height: 80px;
+    padding: 0.45rem 0 0.45rem 0;
+  }
+
+  .navbar-container {
+    padding: 0 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .nav-badge-desktop {
+    display: none !important;
+  }
+
   .nav-link-desktop {
     display: none !important;
   }
 
-  .navbar-container {
-    padding: 0 0.65rem;
-  }
-
-  .navbar-left {
-    gap: 0.45rem;
+  .navbar-main-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 
   .logo-img {
@@ -595,17 +608,27 @@ section {
   }
 
   .logo-text {
-    font-size: 0.75rem;
-    letter-spacing: 0.03em;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
   }
 
-  .company-tag {
-    display: none;
+  .btn-nav {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.8rem;
   }
 
-  .navbar-promo-badge {
+  /* Mobile Sub-Row: 75% Offer placed directly UNDER logo on the left, preserved links on right */
+  .navbar-mobile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-badge-mobile {
+    display: inline-flex !important;
     padding: 0.16rem 0.45rem;
-    gap: 0.28rem;
+    gap: 0.25rem;
   }
 
   .nav-offer-tag {
@@ -614,25 +637,46 @@ section {
   }
 
   .nav-offer-timer .timer-num {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
   }
 
   .nav-offer-timer .timer-lbl {
-    font-size: 0.52rem;
+    font-size: 0.5rem;
   }
 
-  .btn-nav {
-    font-size: 0.75rem;
-    padding: 0.35rem 0.7rem;
+  .nav-offer-timer .timer-sep {
+    font-size: 0.65rem;
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .mobile-nav-links .nav-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .mobile-nav-links .nav-link:hover {
+    color: var(--accent-orange);
   }
 }
 
 @media (max-width: 400px) {
   .logo-text {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
   }
 
-  .navbar-promo-badge {
+  .navbar-container {
+    padding: 0 0.55rem;
+  }
+
+  .nav-badge-mobile {
     padding: 0.14rem 0.35rem;
     gap: 0.2rem;
   }
@@ -643,16 +687,24 @@ section {
   }
 
   .nav-offer-timer .timer-num {
-    font-size: 0.65rem;
+    font-size: 0.64rem;
   }
 
   .nav-offer-timer .timer-lbl {
-    font-size: 0.48rem;
+    font-size: 0.46rem;
+  }
+
+  .mobile-nav-links {
+    gap: 0.6rem;
+  }
+
+  .mobile-nav-links .nav-link {
+    font-size: 0.72rem;
   }
 
   .btn-nav {
-    font-size: 0.68rem;
-    padding: 0.3rem 0.55rem;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.65rem;
   }
 }
 
@@ -695,9 +747,9 @@ section {
 .hero-content {
   max-width: 720px;
   width: 95%;
-  padding: 1rem 1rem;
+  padding: 0.5rem 1rem;
   text-align: center;
-  transform: translateY(-115px);
+  transform: translateY(-145px); /* Lifted one more time up */
   /* Transparent container on desktop, no borders/bg */
   background: transparent;
   border: none;
@@ -1018,29 +1070,30 @@ section {
 }
 
 .hero-electric-pill {
-  background: rgba(59, 7, 100, 0.65); /* bg-purple-950/65 */
-  border: 1.5px solid rgba(192, 132, 252, 0.6);
+  background: rgba(45, 6, 80, 0.9); /* deep, high-opacity electric purple */
+  border: 1.5px solid rgba(216, 180, 254, 0.85);
   border-radius: 9999px;
-  padding: 0.32rem 0.9rem;
+  padding: 0.38rem 1.1rem;
   margin-top: 0.75rem;
   margin-bottom: 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  gap: 0.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   animation: electricPillPulse 2.8s ease-in-out infinite;
   max-width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(168, 85, 247, 0.4);
 }
 
 .hero-electric-pill .pill-sparkle {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1;
   flex-shrink: 0;
   display: inline-block;
   animation: sparkleTwinkle 2.5s ease-in-out infinite;
-  filter: drop-shadow(0 0 6px rgba(255, 230, 0, 0.8));
+  filter: drop-shadow(0 0 8px rgba(255, 230, 0, 0.95));
 }
 
 @keyframes sparkleTwinkle {
@@ -1049,14 +1102,14 @@ section {
 }
 
 .hero-electric-pill .pill-text {
-  color: #f3e8ff;
+  color: #ffffff; /* pure white, maximum visibility */
   font-family: var(--font-heading);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 800;
   letter-spacing: 0.05em;
   text-align: center;
-  line-height: 1.4;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  line-height: 1.45;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 10px rgba(168, 85, 247, 0.8);
 }
 
 .highlight {
@@ -1274,29 +1327,30 @@ section {
 .hero-btn-series,
 .hero-btn-ghost {
   flex: 0.8;
-  padding: 0.85rem 1.5rem;
-  font-size: 1.05rem;
+  padding: 0.95rem 1.6rem;
+  font-size: 1.15rem;
   font-family: 'Bangers', cursive;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   border-radius: 8px;
   text-align: center;
-  background: transparent !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
-  color: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.14) !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 3px #000000;
   transition: var(--transition-smooth);
 }
 
 .hero-btn-series:hover,
 .hero-btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border-color: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: #ffffff !important;
   color: #ffffff !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.45), 0 8px 25px rgba(0, 0, 0, 0.7);
 }
 
 .hero-meta {
@@ -1323,7 +1377,7 @@ section {
 @media (max-width: 768px) {
   .hero-section {
     min-height: 100vh;
-    padding: 72px 0 20px 0;
+    padding: 85px 0 15px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1335,10 +1389,10 @@ section {
   }
   
   .hero-content {
-    padding: 0.25rem 0;
+    padding: 0;
     width: 95%;
     margin: 0 auto;
-    transform: translateY(-25px); /* Lifted up high on mobile */
+    transform: translateY(-48px); /* Lifted one more time up */
     background: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -1369,20 +1423,25 @@ section {
   }
 
   .hero-electric-pill {
-    padding: 0.25rem 0.75rem;
-    margin-top: 0.55rem;
+    padding: 0.28rem 0.85rem;
+    margin-top: 0.5rem;
     margin-bottom: 1.25rem;
-    max-width: 95%;
+    max-width: 98%;
+    background: rgba(45, 6, 80, 0.92);
+    border: 1.5px solid rgba(216, 180, 254, 0.9);
   }
 
   .hero-electric-pill .pill-sparkle {
-    font-size: 0.82rem;
+    font-size: 0.88rem;
   }
 
   .hero-electric-pill .pill-text {
-    font-size: 0.65rem;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
     letter-spacing: 0.03em;
-    line-height: 1.35;
+    line-height: 1.4;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
   }
   
   .hero-actions {
@@ -1401,12 +1460,14 @@ section {
   
   .hero-btn-series,
   .hero-btn-ghost {
-    font-size: 1.05rem;
-    padding: 0.85rem 1.4rem;
+    font-size: 1.15rem;
+    padding: 0.95rem 1.5rem;
     font-family: 'Bangers', cursive;
-    background: transparent !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
-    color: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   }
   
   .hero-btn-buy,
@@ -1419,11 +1480,11 @@ section {
 
 @media (max-width: 480px) {
   .hero-section {
-    padding: 68px 0 15px 0;
+    padding: 82px 0 10px 0;
   }
 
   .hero-content {
-    transform: translateY(-20px);
+    transform: translateY(-42px);
   }
 
   .hero-title {
@@ -1442,13 +1503,14 @@ section {
   }
 
   .hero-electric-pill {
-    padding: 0.2rem 0.6rem;
-    margin-top: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    margin-top: 0.45rem;
     margin-bottom: 1.15rem;
   }
 
   .hero-electric-pill .pill-text {
-    font-size: 0.6rem;
+    font-size: 0.67rem;
+    font-weight: 800;
   }
 }
 

@@ -47,59 +47,88 @@ export default function Navbar() {
     }
   };
 
+  const timerDisplay = (
+    <div className="nav-offer-timer">
+      <span className="timer-unit">
+        <span className="timer-num">{hasMounted ? formatNumber(timeLeft.days) : "01"}</span>
+        <span className="timer-lbl">d</span>
+      </span>
+      <span className="timer-sep">:</span>
+      <span className="timer-unit">
+        <span className="timer-num">{hasMounted ? formatNumber(timeLeft.hours) : "23"}</span>
+        <span className="timer-lbl">h</span>
+      </span>
+      <span className="timer-sep">:</span>
+      <span className="timer-unit">
+        <span className="timer-num">{hasMounted ? formatNumber(timeLeft.minutes) : "59"}</span>
+        <span className="timer-lbl">m</span>
+      </span>
+      <span className="timer-sep">:</span>
+      <span className="timer-unit">
+        <span className="timer-num">{hasMounted ? formatNumber(timeLeft.seconds) : "59"}</span>
+        <span className="timer-lbl">s</span>
+      </span>
+    </div>
+  );
+
   return (
     <nav className="navbar glass">
       <div className="navbar-container">
-        <div className="navbar-left">
-          <a href="#" className="navbar-logo">
-            <Image
-              src="/logo.png"
-              alt="Anime Voice Pack Bundle Logo"
-              width={36}
-              height={36}
-              className="logo-img"
-            />
-            <div className="logo-text-container">
+        {/* Main / Top Row */}
+        <div className="navbar-main-row">
+          <div className="navbar-left">
+            <a href="#" className="navbar-logo">
+              <Image
+                src="/logo.png"
+                alt="Anime Voice Pack Bundle Logo"
+                width={36}
+                height={36}
+                className="logo-img"
+              />
               <span className="logo-text">ANIME VOICE PACK</span>
-              <span className="company-tag">Alpha Voice Assets LLC</span>
-            </div>
-          </a>
+            </a>
 
-          {/* Top-Left Merged 75% Offer Badge with Day, Hour & Seconds */}
+            {/* Desktop Offer Badge alongside logo */}
+            <a
+              href="#pricing"
+              onClick={handleScrollToPricing}
+              className="navbar-promo-badge nav-badge-desktop"
+              aria-label="Limited 75% Off Offer. Countdown displaying days, hours, minutes, and seconds."
+            >
+              <span className="nav-offer-tag">🔥 75% OFF</span>
+              <span className="nav-offer-divider" aria-hidden="true" />
+              {timerDisplay}
+            </a>
+          </div>
+
+          <div className="navbar-links">
+            <a href="#overview" className="nav-link nav-link-desktop">Overview</a>
+            <a href="#showcase" className="nav-link nav-link-desktop">Anime</a>
+            <a href="#tutorial" className="nav-link nav-link-desktop">Tutorial</a>
+            <a href="#pricing" onClick={handleScrollToPricing} className="nav-link btn-nav">
+              BUY NOW
+            </a>
+          </div>
+        </div>
+
+        {/* Mobile Sub-Row: 75% Offer placed directly UNDER logo on the left, Overview/Anime/Tutorial preserved on right */}
+        <div className="navbar-mobile-row">
           <a
             href="#pricing"
             onClick={handleScrollToPricing}
-            className="navbar-promo-badge"
-            aria-label="Limited 75% Off Offer. Countdown displaying days, hours, and seconds."
+            className="navbar-promo-badge nav-badge-mobile"
+            aria-label="Limited 75% Off Offer. Countdown displaying days, hours, minutes, and seconds."
           >
             <span className="nav-offer-tag">🔥 75% OFF</span>
             <span className="nav-offer-divider" aria-hidden="true" />
-            <div className="nav-offer-timer">
-              <span className="timer-unit">
-                <span className="timer-num">{hasMounted ? formatNumber(timeLeft.days) : "01"}</span>
-                <span className="timer-lbl">d</span>
-              </span>
-              <span className="timer-sep">:</span>
-              <span className="timer-unit">
-                <span className="timer-num">{hasMounted ? formatNumber(timeLeft.hours) : "23"}</span>
-                <span className="timer-lbl">h</span>
-              </span>
-              <span className="timer-sep">:</span>
-              <span className="timer-unit">
-                <span className="timer-num">{hasMounted ? formatNumber(timeLeft.seconds) : "59"}</span>
-                <span className="timer-lbl">s</span>
-              </span>
-            </div>
+            {timerDisplay}
           </a>
-        </div>
 
-        <div className="navbar-links">
-          <a href="#overview" className="nav-link nav-link-desktop">Overview</a>
-          <a href="#showcase" className="nav-link nav-link-desktop">Anime</a>
-          <a href="#tutorial" className="nav-link nav-link-desktop">Tutorial</a>
-          <a href="#pricing" onClick={handleScrollToPricing} className="nav-link btn-nav">
-            BUY NOW
-          </a>
+          <div className="mobile-nav-links">
+            <a href="#overview" className="nav-link">Overview</a>
+            <a href="#showcase" className="nav-link">Anime</a>
+            <a href="#tutorial" className="nav-link">Tutorial</a>
+          </div>
         </div>
       </div>
     </nav>
