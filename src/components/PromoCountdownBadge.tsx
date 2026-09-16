@@ -6,8 +6,17 @@ interface PromoCountdownBadgeProps {
   onClick?: () => void;
 }
 
-const STORAGE_KEY = "anime_voice_pack_countdown_target";
-const CYCLE_DURATION_MS = 48 * 60 * 60 * 1000; // 48 hours in milliseconds
+const CYCLE_DURATION = 48 * 60 * 60 * 1000; // 48 hours in ms
+
+const calculateTimeLeft = () => {
+  const timeLeftMs = CYCLE_DURATION - (Date.now() % CYCLE_DURATION);
+  const totalSeconds = Math.max(0, Math.floor(timeLeftMs / 1000));
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return { days, hours, minutes, seconds };
+};
 
 export default function PromoCountdownBadge({ onClick }: PromoCountdownBadgeProps) {
   const [hasMounted, setHasMounted] = useState(false);
@@ -20,56 +29,11 @@ export default function PromoCountdownBadge({ onClick }: PromoCountdownBadgeProp
 
   useEffect(() => {
     setHasMounted(true);
+    setTimeLeft(calculateTimeLeft());
 
-    const getInitialTarget = (): number => {
-      const now = Date.now();
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          const parsed = parseInt(stored, 10);
-          // If stored timestamp is valid and still in the future, use it
-          if (!isNaN(parsed) && parsed > now) {
-            return parsed;
-          }
-        }
-      } catch {
-        // Fallback if localStorage is inaccessible
-      }
-
-      // If expired, not found, or invalid, initialize fresh 48-hour loop
-      const newTarget = now + CYCLE_DURATION_MS;
-      try {
-        localStorage.setItem(STORAGE_KEY, newTarget.toString());
-      } catch {}
-      return newTarget;
-    };
-
-    let targetTimestamp = getInitialTarget();
-
-    const calculateAndUpdate = () => {
-      const now = Date.now();
-      let diff = targetTimestamp - now;
-
-      // Evergreen loop: when timer reaches 0, loop back to fresh 48-hour cycle
-      if (diff <= 0) {
-        targetTimestamp = now + CYCLE_DURATION_MS;
-        try {
-          localStorage.setItem(STORAGE_KEY, targetTimestamp.toString());
-        } catch {}
-        diff = targetTimestamp - now;
-      }
-
-      const totalSeconds = Math.max(0, Math.floor(diff / 1000));
-      const days = Math.floor(totalSeconds / (3600 * 24));
-      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-
-      setTimeLeft({ days, hours, minutes, seconds });
-    };
-
-    calculateAndUpdate();
-    const interval = setInterval(calculateAndUpdate, 1000);
+    const interval = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
