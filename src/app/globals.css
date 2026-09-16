@@ -971,6 +971,11 @@ section {
   margin-right: auto;
 }
 
+.hero-title-main,
+.hero-title-sub {
+  display: inline;
+}
+
 .hero-title .highlight-yellow {
   color: #facc15;
   text-shadow: 2px 2px 0px #000000, 4px 4px 0px var(--accent-orange);
@@ -1461,11 +1466,31 @@ section {
 
   .hero-title {
     font-size: 2.5rem;
-    line-height: 1.1;
-    margin-top: -1.25rem;
-    transform: translateY(-18px);
-    margin-bottom: 1.05rem;
+    line-height: 1.05;
+    margin-top: -1.5rem;
+    transform: translateY(-24px);
+    margin-bottom: 1.15rem;
     text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-red);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .hero-title-main {
+    display: block;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .hero-title-sub {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 0.15rem;
   }
 
   .hero-title .highlight-yellow {
@@ -1555,10 +1580,14 @@ section {
 
   .hero-title {
     font-size: 2.15rem;
-    line-height: 1.1;
-    margin-top: -1.35rem;
-    transform: translateY(-22px);
-    margin-bottom: 1rem;
+    line-height: 1.05;
+    margin-top: -1.65rem;
+    transform: translateY(-28px);
+    margin-bottom: 1.1rem;
+  }
+
+  .hero-title-sub {
+    margin-top: 0.1rem;
   }
 
   .hero-value-box {

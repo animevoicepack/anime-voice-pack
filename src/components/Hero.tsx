@@ -68,7 +68,8 @@ export default function Hero({ onBuyNow }: HeroProps) {
         <div className="hero-content">
           {/* Restored Stylized Main Title */}
           <h1 className="hero-title">
-            ANIME VOICE PACK <span className="highlight-yellow">BUNDLE</span>
+            <span className="hero-title-main">ANIME VOICE PACK</span>{" "}
+            <span className="hero-title-sub highlight-yellow">BUNDLE</span>
           </h1>
 
           {/* Enhanced Glass Container & High-Tech Value Proposition */}
