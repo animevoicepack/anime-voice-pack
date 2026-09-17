@@ -76,15 +76,15 @@ export default function Hero({ onBuyNow }: HeroProps) {
           <div className="hero-value-box">
             <p className="hero-value-text leading-loose">
               GET{" "}
-              <span className="text-red-500 font-extrabold px-1.5 py-0.5 mx-1 rounded-md border text-xs sm:text-[13px] inline-block">
+              <span className="text-red-500 font-extrabold px-1.5 py-0.5 mx-1.5 my-0.5 rounded border text-[11px] sm:text-xs inline-block whitespace-nowrap align-middle">
                 1,000+ VOICE FILES
               </span>{" "}
               OF EVERY ANIME CHARACTER&apos;S VOICE,{" "}
-              <span className="text-emerald-400 font-extrabold px-1.5 py-0.5 mx-1 rounded-md border text-xs sm:text-[13px] inline-block">
+              <span className="text-emerald-400 font-extrabold px-1.5 py-0.5 mx-1.5 my-0.5 rounded border text-[11px] sm:text-xs inline-block whitespace-nowrap align-middle">
                 FULLY CLEANED
               </span>{" "}
               AND READY FOR{" "}
-              <span className="text-cyan-400 font-extrabold px-1.5 py-0.5 mx-1 rounded-md border text-xs sm:text-[13px] inline-block">
+              <span className="text-cyan-400 font-extrabold px-1.5 py-0.5 mx-1.5 my-0.5 rounded border text-[11px] sm:text-xs inline-block whitespace-nowrap align-middle">
                 AI VOICE CLONING
               </span>
             </p>
