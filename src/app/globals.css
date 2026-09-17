@@ -1468,9 +1468,9 @@ section {
   .hero-title {
     font-size: 3.25rem;
     line-height: 1.02;
-    margin-top: -1.65rem;
-    transform: translateY(-26px);
-    margin-bottom: 1.2rem;
+    margin-top: -0.75rem;
+    transform: translateY(-10px);
+    margin-bottom: 0.95rem;
     text-shadow: 2px 2px 0px #000000, 3px 3px 0px var(--accent-red);
     display: flex;
     flex-direction: column;
@@ -1589,9 +1589,9 @@ section {
   .hero-title {
     font-size: 2.75rem;
     line-height: 1.02;
-    margin-top: -1.75rem;
-    transform: translateY(-28px);
-    margin-bottom: 1.15rem;
+    margin-top: -0.85rem;
+    transform: translateY(-12px);
+    margin-bottom: 0.9rem;
   }
 
   .hero-title-sub {
